@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">ffstory</string>
+    <string name="app_title">A Final Fantasy Story!</string>
+    <string name="button_begin">Begin!</string>
+    <string name="page2_title">Hello blah blah blah blah.</string>
 </resources>
