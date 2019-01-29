@@ -3,4 +3,12 @@
     <string name="app_title">A Final Fantasy Story!</string>
     <string name="button_begin">Begin!</string>
     <string name="page2_title">Hello blah blah blah blah.</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="prev_button">Prev</string>
+    <string name="next_button">Next</string>
+    <string name="reload">Reload!</string>
 </resources>
