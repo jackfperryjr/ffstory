@@ -11,4 +11,6 @@
     <string name="prev_button">Prev</string>
     <string name="next_button">Next</string>
     <string name="reload">Reload!</string>
+    <string name="back_button">back</string>
+    <string name="title_heading">A Final Fantasy App!</string>
 </resources>

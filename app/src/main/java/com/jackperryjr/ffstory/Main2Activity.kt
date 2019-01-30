@@ -4,7 +4,9 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
+import android.widget.*
+import org.json.JSONArray
+import org.json.JSONObject
 
 class Main2Activity : AppCompatActivity() {
 
@@ -12,17 +14,28 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
-        var prevButton = findViewById(R.id.prev_button) as Button
+        val character = JSONObject(getIntent().getStringExtra("character"))
 
-        prevButton.setOnClickListener(View.OnClickListener { view ->
+        val characterName = findViewById<TextView>(R.id.character_name)
+        val characterAge = findViewById<TextView>(R.id.character_age)
+        val characterRace = findViewById<TextView>(R.id.character_race)
+        val characterGender = findViewById<TextView>(R.id.character_gender)
+        val characterJob = findViewById<TextView>(R.id.character_job)
+        val characterOrigin = findViewById<TextView>(R.id.character_origin)
+
+
+        characterName.text = character.optString("name")
+        characterAge.text = character.optString("age")
+        characterRace.text = character.optString("race")
+        characterGender.text = character.optString("gender")
+        characterJob.text = character.optString("job")
+        characterOrigin.text = character.optString("origin")
+
+
+        var back = findViewById<Button>(R.id.back_button)
+
+        back.setOnClickListener(View.OnClickListener { view ->
             val intent = Intent(view.context, MainActivity::class.java)
-            view.context.startActivity(intent)
-        })
-
-        var nextButton = findViewById(R.id.next_button) as Button
-
-        nextButton.setOnClickListener(View.OnClickListener { view ->
-            val intent = Intent(view.context, Main3Activity::class.java)
             view.context.startActivity(intent)
         })
     }

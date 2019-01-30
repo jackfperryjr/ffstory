@@ -1,21 +1,15 @@
 package com.jackperryjr.ffstory
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.content.Intent
 import android.view.View
 import android.widget.*
-import android.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.net.*
-import java.io.InputStream
 
 import org.jetbrains.anko.*
-import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
 
 import com.squareup.picasso.Picasso
 
@@ -25,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         doAsync {
             val randomCharacter = URL("https://www.moogleapi.com/api/characters/random").readText()
             //val characterList = URL("https://www.moogleapi.com/api/characters").readText()
@@ -34,19 +27,32 @@ class MainActivity : AppCompatActivity() {
 
                 //Display the random character name.
                 val character = JSONObject(randomCharacter)
+
                 character_list.text = character.optString("name")
                 val characterImageUrl = character.optString("picture")
-                val characterImage = findViewById(R.id.character_avatar) as ImageView
+                val characterImage = findViewById<ImageButton>(R.id.character_avatar)
 
                 Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
+
+                val characterIntent = Intent(this@MainActivity, Main2Activity::class.java)
+                characterIntent.putExtra("character", character.toString())
+
+                var info = findViewById<ImageButton>(R.id.character_avatar)
+
+                info.setOnClickListener(View.OnClickListener { view ->
+                    val intent = Intent(view.context, Main2Activity::class.java)
+                    view.context.startActivity(characterIntent)
+                })
             }
-
-            var nextButton = findViewById(R.id.next_button) as Button
-
-            nextButton.setOnClickListener(View.OnClickListener { view ->
-                val intent = Intent(view.context, MainActivity::class.java)
-                view.context.startActivity(intent)
-            })
         }
+
+        var reload = findViewById<Button>(R.id.reload_button)
+
+        reload.setOnClickListener(View.OnClickListener { view ->
+            val intent = Intent(view.context, MainActivity::class.java)
+            view.context.startActivity(intent)
+        })
+
+
     }
 }
