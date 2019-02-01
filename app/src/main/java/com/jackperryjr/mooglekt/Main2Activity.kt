@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import org.json.JSONArray
 import org.json.JSONObject
 
 class Main2Activity : AppCompatActivity() {
@@ -22,6 +21,7 @@ class Main2Activity : AppCompatActivity() {
         val characterGender = findViewById<TextView>(R.id.character_gender)
         val characterJob = findViewById<TextView>(R.id.character_job)
         val characterOrigin = findViewById<TextView>(R.id.character_origin)
+        val characterDescription = findViewById<TextView>(R.id.character_description)
 
 
         characterName.text = character.optString("name")
@@ -30,6 +30,7 @@ class Main2Activity : AppCompatActivity() {
         characterGender.text = character.optString("gender")
         characterJob.text = character.optString("job")
         characterOrigin.text = character.optString("origin")
+        characterDescription.text = character.optString("description")
 
 
         var back = findViewById<Button>(R.id.back_button)

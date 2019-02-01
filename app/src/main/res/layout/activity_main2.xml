@@ -7,80 +7,80 @@
         android:layout_height="match_parent"
         tools:context=".Main2Activity">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text=""
-            android:id="@+id/character_name"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="100dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="57dp" android:layout_marginStart="57dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.17000002"
-            android:id="@+id/character_age" app:layout_constraintHorizontal_bias="0.14"
-            android:layout_marginTop="20dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.22000003"
-            android:id="@+id/character_gender" app:layout_constraintHorizontal_bias="0.14"
-            android:layout_marginTop="20dp"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.322"
-            android:id="@+id/character_race" app:layout_constraintHorizontal_bias="0.14"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.385"
-            android:id="@+id/character_job" app:layout_constraintHorizontal_bias="0.14"/>
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:text=""
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.45"
-            android:id="@+id/character_origin" app:layout_constraintHorizontal_bias="0.14"/>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:scrollbars="none"
+                android:fillViewport="true">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="60dp">
 
-    <!--<Button-->
-            <!--android:text="@string/prev_button"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/prev_button"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--android:layout_marginLeft="28dp" android:layout_marginStart="28dp"-->
-            <!--android:layout_marginBottom="28dp" app:layout_constraintBottom_toBottomOf="parent"/>-->
-
-    <!--<Button-->
-            <!--android:text="@string/next_button"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/next_button"-->
-            <!--android:layout_marginEnd="28dp" android:layout_marginRight="28dp"-->
-            <!--app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--android:layout_marginBottom="28dp"/>-->
-
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:id="@+id/character_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="60dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:id="@+id/character_age"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="90dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:id="@+id/character_gender"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="120dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:id="@+id/character_race"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="150dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:id="@+id/character_job"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="180dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="20dp"
+                    android:text=""
+                    android:id="@+id/character_origin"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="210dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
+            <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:id="@+id/character_description"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="240dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginBottom="100dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="60dp"
+                    android:layout_marginRight="60dp"/>
+        </RelativeLayout>
+    </ScrollView>
     <Button
             android:text="@string/back_button"
             android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="162dp"
             android:layout_marginStart="162dp" app:layout_constraintHorizontal_bias="1.0"
             android:layout_marginBottom="28dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@color/colorPrimaryDark" android:autoText="false"
+            android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorPrimary"/>
 
 </android.support.constraint.ConstraintLayout>
