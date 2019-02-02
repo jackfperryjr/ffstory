@@ -13,7 +13,7 @@ import org.json.JSONObject
 
 import com.squareup.picasso.Picasso
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
             val randomCharacter = URL("https://www.moogleapi.com/api/characters/random").readText()
             //val characterList = URL("https://www.moogleapi.com/api/characters").readText()
             uiThread {
-                //toast(result)
-
+                //toast(randomCharacter)
+                //warn(randomCharacter)
                 //Display the random character name.
                 val character = JSONObject(randomCharacter)
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 var info = findViewById<ImageButton>(R.id.character_avatar)
 
                 info.setOnClickListener(View.OnClickListener { view ->
-                    val intent = Intent(view.context, Main2Activity::class.java)
+                    //val intent = Intent(view.context, Main2Activity::class.java)
                     view.context.startActivity(characterIntent)
                 })
             }

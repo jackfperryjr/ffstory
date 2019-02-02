@@ -24,12 +24,12 @@ class Main2Activity : AppCompatActivity() {
         val characterDescription = findViewById<TextView>(R.id.character_description)
 
 
-        characterName.text = character.optString("name")
-        characterAge.text = character.optString("age")
-        characterRace.text = character.optString("race")
-        characterGender.text = character.optString("gender")
-        characterJob.text = character.optString("job")
-        characterOrigin.text = character.optString("origin")
+        characterName.text = "Name: " + character.optString("name")
+        characterAge.text = "Age: " + character.optString("age")
+        characterRace.text = "Race: " + character.optString("race")
+        characterGender.text = "Gender: " + character.optString("gender")
+        characterJob.text = "Job Class: " + character.optString("job")
+        characterOrigin.text = "Origin: " + character.optString("origin")
         characterDescription.text = character.optString("description")
 
 
