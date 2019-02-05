@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mooglekt</string>
+    <string name="app_name">MoogleApi</string>
     <string name="app_title">A Final Fantasy App!</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_home">Home</string>
@@ -8,7 +8,7 @@
     <string name="title_activity_main3">Main3Activity</string>
     <string name="prev_button">Prev</string>
     <string name="next_button">Next</string>
-    <string name="reload">Reload!</string>
+    <string name="reload">Reload</string>
     <string name="back_button">back</string>
     <string name="title_heading">A Final Fantasy App!</string>
     <string name="avatar">character avatar</string>
