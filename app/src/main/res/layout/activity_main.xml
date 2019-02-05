@@ -54,8 +54,8 @@
             android:layout_marginRight="46dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginLeft="53dp" android:layout_marginStart="53dp" android:layout_marginBottom="23dp"
             app:layout_constraintBottom_toTopOf="@+id/character_list" android:layout_marginTop="80dp"
-            app:layout_constraintTop_toBottomOf="@+id/title_heading" android:adjustViewBounds="false"
+            app:layout_constraintTop_toBottomOf="@+id/title_heading"
             android:cropToPadding="false" android:scaleType="fitCenter" android:contentDescription="@string/avatar"
-            android:background="@color/colorText"/>
+            android:background="@color/colorText" android:adjustViewBounds="true"/>
 
 </android.support.constraint.ConstraintLayout>

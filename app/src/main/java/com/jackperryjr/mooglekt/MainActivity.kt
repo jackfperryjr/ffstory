@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         reload.setOnClickListener(View.OnClickListener { view ->
             val intent = Intent(view.context, MainActivity::class.java)
+            finish()
             view.context.startActivity(intent)
         })
 
