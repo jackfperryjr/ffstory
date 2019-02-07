@@ -3,7 +3,7 @@ package com.jackperryjr.mooglekt
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import android.widget.*
 import android.graphics.Color
 import android.text.Spannable
@@ -18,34 +18,31 @@ import org.json.JSONObject
 
 import com.squareup.picasso.Picasso
 
-class MainActivity : AppCompatActivity(), AnkoLogger {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var titleBar = SpannableString("MoogleAPI")
-        titleBar.setSpan(RelativeSizeSpan(1.5f), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(RelativeSizeSpan(.75f), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 7, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 8, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        setTitle(titleBar)
+        setTitle()
         setContentView(R.layout.activity_main)
+        moogleApi()
 
+        var reload = findViewById<Button>(R.id.reload_button)
+
+        reload.setOnClickListener {
+            moogleApi()
+        }
+    }
+
+    private fun moogleApi() {
         doAsync {
-            val randomCharacter = URL("https://www.moogleapi.com/api/characters/random").readText()
-            //val characterList = URL("https://www.moogleapi.com/api/characters").readText()
+            val apiURL = URL(URL_RANDOM_CHARACTER).readText()
             uiThread {
-                //toast(randomCharacter)
-                //warn(randomCharacter)
-                //Display the random character name.
-                val character = JSONObject(randomCharacter)
+
+                //Convert JSON string back to JSON object
+                val character = JSONObject(apiURL)
+
+                //Toast the name upon receipt
+                //toast(character.optString(("name"))).setGravity(Gravity.CENTER, 0, 0)
 
                 character_list.text = character.optString("name")
                 val characterImageUrl = character.optString("picture")
@@ -58,20 +55,33 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
                 var info = findViewById<ImageButton>(R.id.character_avatar)
 
-                info.setOnClickListener(View.OnClickListener { view ->
+                //Button to send data to second activity
+                info.setOnClickListener{ view ->
                     view.context.startActivity(characterIntent)
-                })
+                }
             }
         }
+    }
 
-        var reload = findViewById<Button>(R.id.reload_button)
+    private fun setTitle() {
+        var titleBar = SpannableString("MoogleAPI")
+        titleBar.setSpan(RelativeSizeSpan(1.5f), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(RelativeSizeSpan(.75f), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 7, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 8, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        setTitle(titleBar)
+    }
 
-        reload.setOnClickListener(View.OnClickListener { view ->
-            val intent = Intent(view.context, MainActivity::class.java)
-            finish()
-            view.context.startActivity(intent)
-        })
-
-
+    companion object {
+        val TAG = MainActivity::class.java.simpleName
+        val URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random"
+        val URL_ALL_CHARACTERS = "https://www.moogleapi.com/api/characters"
     }
 }

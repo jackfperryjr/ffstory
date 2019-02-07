@@ -13,6 +13,19 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
+        setCharacterData()
+
+        var back = findViewById<Button>(R.id.back_button)
+
+        back.setOnClickListener(View.OnClickListener { view ->
+            val intent = Intent(view.context, MainActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            view.context.startActivity(intent)
+        })
+    }
+
+    private fun setCharacterData() {
+
         val character = JSONObject(getIntent().getStringExtra("character"))
 
         val characterName = findViewById<TextView>(R.id.character_name)
@@ -23,7 +36,6 @@ class Main2Activity : AppCompatActivity() {
         val characterOrigin = findViewById<TextView>(R.id.character_origin)
         val characterDescription = findViewById<TextView>(R.id.character_description)
 
-
         characterName.text = "Name: " + character.optString("name")
         characterAge.text = "Age: " + character.optString("age")
         characterRace.text = "Race: " + character.optString("race")
@@ -31,19 +43,5 @@ class Main2Activity : AppCompatActivity() {
         characterJob.text = "Job Class: " + character.optString("job")
         characterOrigin.text = "Origin: " + character.optString("origin")
         characterDescription.text = character.optString("description")
-
-
-        var back = findViewById<Button>(R.id.back_button)
-
-//        back.setOnClickListener(View.OnClickListener { view ->
-//            val intent = Intent(view.context, MainActivity::class.java)
-//            view.context.startActivity(intent)
-//        })
-
-        back.setOnClickListener(View.OnClickListener { view ->
-            val intent = Intent(view.context, MainActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            view.context.startActivity(intent)
-        })
     }
 }
