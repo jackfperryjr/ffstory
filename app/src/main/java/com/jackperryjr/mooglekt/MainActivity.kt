@@ -20,15 +20,21 @@ import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
+    private var spinner: ProgressBar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle()
         setContentView(R.layout.activity_main)
+        spinner = findViewById<ProgressBar>(R.id.spinner)
+        spinner!!.setVisibility(View.VISIBLE)
+
         moogleApi()
 
         var reload = findViewById<Button>(R.id.reload_button)
 
         reload.setOnClickListener {
+            spinner!!.setVisibility(View.VISIBLE)
             moogleApi()
         }
     }
@@ -61,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        spinner!!.setVisibility(View.GONE)
     }
 
     private fun setTitle() {

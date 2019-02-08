@@ -36,6 +36,18 @@
             android:background="@color/colorText" android:adjustViewBounds="true"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
+    <ProgressBar
+            android:layout_width="0dp"
+            android:layout_height="0dp" tools:srcCompat="@tools:sample/avatars"
+            android:id="@+id/spinner"
+            android:progressDrawable="@drawable/loading"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="23dp"
+            app:layout_constraintBottom_toTopOf="@+id/character_list"
+            android:cropToPadding="false" android:scaleType="fitCenter" android:contentDescription="@string/avatar"
+            android:background="@color/colorText" android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"/>
     <Button
             android:text="@string/reload"
             android:layout_width="wrap_content"
