@@ -3,6 +3,7 @@ package com.jackperryjr.mooglekt
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.widget.*
 import android.graphics.Color
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         setTitle()
         setContentView(R.layout.activity_main)
         spinner = findViewById<ProgressBar>(R.id.spinner)
-        spinner!!.setVisibility(View.VISIBLE)
 
         moogleApi()
 
@@ -67,7 +67,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        spinner!!.setVisibility(View.GONE)
+        val handler = Handler()
+        handler.postDelayed(Runnable {
+            spinner!!.setVisibility(View.GONE)
+        }, 2000)
     }
 
     private fun setTitle() {
