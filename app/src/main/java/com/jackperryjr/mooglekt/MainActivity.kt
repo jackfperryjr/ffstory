@@ -31,24 +31,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setTitle()
-        var titleBar = SpannableString("Moogle Matcher")
-        setTitle(titleBar)
+        setTitle()
 //        spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
         moogleApi()
 
-        var reload = findViewById<Button>(R.id.reload_button)
         spinner!!.setVisibility(View.GONE) //Hiding the spinner that I'm not currently using.
-        reload.setVisibility(View.GONE) //Just hiding the reload button for now.
-
-//        --- Old reload button ---
-//
-//        reload.setOnClickListener {
-//            //spinner!!.setVisibility(View.VISIBLE)
-//            moogleApi()
-//        }
-//
-//        --------------------------
     }
 
     private fun moogleApi() {
@@ -59,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 //Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
 
-                character_list.text = character.optString("name")
+                character_obj.text = character.optString("name")
                 val characterImageUrl = character.optString("picture")
                 val characterImage = findViewById<ImageButton>(R.id.character_avatar)
 
@@ -75,41 +62,60 @@ class MainActivity : AppCompatActivity() {
                     view.context.startActivity(intent)
                 }
 
-                val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_list))
+                val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_obj))
                 onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
                     override fun swipeRight() {
 
                         val chance= (0..10).random()
 
                         if (chance >= 7) { //Just an easy random selection for now.
-                            alert(Appcompat, "It's a match! Send a message?"){
-                                negativeButton("Nope!") { moogleApi() }
-                                positiveButton("Yes!") {
-                                    val intent = Intent(this@MainActivity, Main3Activity::class.java)
-                                    intent.putExtra("character", character.toString())
-                                    startActivity(intent)
-                                    finish()
+                            val handler = Handler()
+                            handler.postDelayed(Runnable {
+                                alert(Appcompat, "You liked them! They like you! Send a message?"){
+                                    negativeButton("Nope!") { moogleApi() }
+                                    positiveButton("Yes!") {
+                                        val intent = Intent(this@MainActivity, Main3Activity::class.java)
+                                        intent.putExtra("character", character.toString())
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                }.show().apply {
+                                    getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
+                                    getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
                                 }
-                            }.show().apply {
-                                getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
-                                getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
-                            }
-
-//                            val intent = Intent(this@MainActivity, Main3Activity::class.java)
-//                            intent.putExtra("character", character.toString())
-//                            startActivity(intent)
-//                            finish()
+                            }, 700)
+                        }
+                        else if (chance == 3) {
+                            toast("Fingers crossed!").setGravity(Gravity.CENTER, 0, 0)
+                            val handler = Handler()
+                            handler.postDelayed (Runnable {
+                                moogleApi()
+                            }, 700)
                         }
                         else {
-                            toast("Bummer! No match.").setGravity(Gravity.CENTER, 0, 0)
+                            toast("You liked them!").setGravity(Gravity.CENTER, 0, 0)
                             val handler = Handler()
                             handler.postDelayed(Runnable {
                                 moogleApi()
-                            }, 1000)
+                            }, 700)
                         }
                     }
                     override fun swipeLeft() {
-                        moogleApi()
+                        val chance= (0..10).random()
+
+                        if (chance >= 7) {
+                            toast("They didn't like you either!").setGravity(Gravity.CENTER, 0, 0)
+                        }
+                        else if (chance == 3 ) {
+                            toast("They really really liked you!").setGravity(Gravity.CENTER, 0, 0)
+                        }
+                        else {
+                            toast("Psh. Let's move on.").setGravity(Gravity.CENTER, 0, 0)
+                        }
+                        val handler = Handler()
+                        handler.postDelayed(Runnable {
+                            moogleApi()
+                        }, 700)
                     }
                 })
             }
@@ -122,7 +128,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
-        var titleBar = SpannableString("MoogleAPI")
+        var titleBar = SpannableString("Moogle Matcher")
         titleBar.setSpan(RelativeSizeSpan(1.5f), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -131,9 +137,6 @@ class MainActivity : AppCompatActivity() {
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(RelativeSizeSpan(.75f), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 7, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 8, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         setTitle(titleBar)
     }
 
