@@ -43,14 +43,16 @@ class Main2Activity : AppCompatActivity() {
         val characterOrigin = findViewById<TextView>(R.id.character_origin)
         val characterDescription = findViewById<TextView>(R.id.character_description)
 
-        characterName.text = character.optString("name")
-        characterAge.text= character.optString("age")
-        characterRace.text = character.optString("race")
-        characterGender.text = character.optString("gender")
-        characterJob.text = character.optString("job")
-        characterOrigin.text = character.optString("origin")
+        characterName.text = "Name: " + character.optString("name")
+        characterAge.text= "Age: " + character.optString("age")
+        characterRace.text = "Race: " + character.optString("race")
+        characterGender.text = "Gender: " + character.optString("gender")
+        characterJob.text = "Job Class: " + character.optString("job")
+        characterOrigin.text = "Game Origin: " + character.optString("origin")
         characterDescription.text = character.optString("description")
 
+//        --- Something I'm trying to figure out ---
+//
 //        var name = character.optString("name")
 //        var age = character.optString("age")
 //        var race = character.optString("race")
@@ -66,8 +68,11 @@ class Main2Activity : AppCompatActivity() {
 //        val characterJob = findViewById<TextView>(R.id.character_job)
 //        val characterOrigin = findViewById<TextView>(R.id.character_origin)
 //        val characterDescription = findViewById<TextView>(R.id.character_description)
+//
+//        __________________________________________
     }
-    private fun setTitle() {
+
+    private fun setTitle() { //Used to color the title.
         var titleBar = SpannableString("MoogleAPI")
         titleBar.setSpan(RelativeSizeSpan(1.5f), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

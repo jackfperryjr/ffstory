@@ -21,22 +21,28 @@ import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
 
-    private var spinner: ProgressBar? = null
+//    private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle()
         setContentView(R.layout.activity_main)
-        spinner = findViewById<ProgressBar>(R.id.spinner)
-
+//        spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
+        spinner!!.setVisibility(View.GONE)
         moogleApi()
 
         var reload = findViewById<Button>(R.id.reload_button)
 
-        reload.setOnClickListener {
-            spinner!!.setVisibility(View.VISIBLE)
-            moogleApi()
-        }
+        reload.setVisibility(View.GONE) //Just hiding the reload button for now.
+
+//        --- Old reload button ---
+//
+//        reload.setOnClickListener {
+//            //spinner!!.setVisibility(View.VISIBLE)
+//            moogleApi()
+//        }
+//
+//        --------------------------
     }
 
     private fun moogleApi() {
@@ -44,11 +50,8 @@ class MainActivity : AppCompatActivity() {
             val apiURL = URL(URL_RANDOM_CHARACTER).readText()
             uiThread {
 
-                //Convert JSON string back to JSON object
+                //Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
-
-                //Toast the name upon receipt
-                //toast(character.optString(("name"))).setGravity(Gravity.CENTER, 0, 0)
 
                 character_list.text = character.optString("name")
                 val characterImageUrl = character.optString("picture")
@@ -56,24 +59,52 @@ class MainActivity : AppCompatActivity() {
 
                 Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
 
-                val characterIntent = Intent(this@MainActivity, Main2Activity::class.java)
-                characterIntent.putExtra("character", character.toString())
+                val intent = Intent(this@MainActivity, Main2Activity::class.java)
+                intent.putExtra("character", character.toString())
 
                 var info = findViewById<ImageButton>(R.id.character_avatar)
 
-                //Button to send data to second activity
-                info.setOnClickListener{ view ->
-                    view.context.startActivity(characterIntent)
+                //Button to read information about character.
+                info.setOnClickListener { view ->
+                    view.context.startActivity(intent)
                 }
+
+                val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_list))
+                onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
+                    override fun swipeRight() {
+
+                        val chance= (0..10).random()
+
+                        if (chance >= 7) { //Just an easy random selection for now.
+                            toast("Right! It's a match!").setGravity(Gravity.CENTER, 0, 0)
+                            val intent = Intent(this@MainActivity, Main3Activity::class.java)
+                            intent.putExtra("character", character.toString())
+                            startActivity(intent)
+                            finish()
+                        }
+                        else {
+                            toast("Bummer! No match.").setGravity(Gravity.CENTER, 0, 0)
+                            val handler = Handler()
+                            handler.postDelayed(Runnable {
+                                moogleApi()
+                            }, 1000)
+                        }
+                    }
+                    override fun swipeLeft() {
+                        moogleApi()
+                    }
+                })
+
             }
         }
-        val handler = Handler()
-        handler.postDelayed(Runnable {
-            spinner!!.setVisibility(View.GONE)
-        }, 2000)
+
+//        val handler = Handler() //Not currently using.
+//        handler.postDelayed(Runnable {
+//            spinner!!.setVisibility(View.GONE)
+//        }, 2000)
     }
 
-    private fun setTitle() {
+    private fun setTitle() { //Used to color the title.
         var titleBar = SpannableString("MoogleAPI")
         titleBar.setSpan(RelativeSizeSpan(1.5f), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -90,8 +121,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        val TAG = MainActivity::class.java.simpleName
-        val URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random"
+        val URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
         val URL_ALL_CHARACTERS = "https://www.moogleapi.com/api/characters"
     }
 }
