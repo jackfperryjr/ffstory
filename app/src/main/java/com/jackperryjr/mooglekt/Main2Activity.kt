@@ -17,8 +17,10 @@ class Main2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle()
         setContentView(R.layout.activity_main2)
+        //setTitle()
+        var titleBar = SpannableString("Moogle Matcher")
+        setTitle(titleBar)
 
         setCharacterData()
 

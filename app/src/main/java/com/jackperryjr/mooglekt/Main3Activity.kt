@@ -9,6 +9,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.widget.*
+import com.squareup.picasso.Picasso
 
 import org.json.JSONObject
 
@@ -17,11 +18,31 @@ class Main3Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
-        setTitle() //To color the title for now.
+        //setTitle() //To color the title for now.
+        var titleBar = SpannableString("Moogle Matcher")
+        setTitle(titleBar)
 
         val character = JSONObject(getIntent().getStringExtra("character"))
+
         val characterName = findViewById<TextView>(R.id.character_name)
-        characterName.text = "Name: " + character.optString("name") //Just a name of the matched character for now.
+        characterName.text = character.optString("name")
+
+        val characterAge = findViewById<TextView>(R.id.character_age)
+        characterAge.text = character.optString("age")
+
+        val characterGender = findViewById<TextView>(R.id.character_gender)
+        characterGender.text = character.optString("gender")
+
+        val characterRace = findViewById<TextView>(R.id.character_race)
+        characterRace.text = character.optString("race")
+
+        val characterJob = findViewById<TextView>(R.id.character_job)
+        characterJob.text = character.optString("job")
+
+        val characterImageUrl = character.optString("picture")
+        val characterImage = findViewById<ImageView>(R.id.character_avatar)
+
+        Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
 
         var back = findViewById<Button>(R.id.back_button)
 

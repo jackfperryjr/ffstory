@@ -2,6 +2,7 @@ package com.jackperryjr.mooglekt
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
@@ -11,11 +12,15 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
+import android.view.Gravity
+
 import kotlinx.android.synthetic.main.activity_main.*
+
 import java.net.*
 
 import org.jetbrains.anko.*
 import org.json.JSONObject
+import org.jetbrains.anko.appcompat.v7.Appcompat
 
 import com.squareup.picasso.Picasso
 
@@ -25,14 +30,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle()
         setContentView(R.layout.activity_main)
+        //setTitle()
+        var titleBar = SpannableString("Moogle Matcher")
+        setTitle(titleBar)
 //        spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
-        spinner!!.setVisibility(View.GONE)
         moogleApi()
 
         var reload = findViewById<Button>(R.id.reload_button)
-
+        spinner!!.setVisibility(View.GONE) //Hiding the spinner that I'm not currently using.
         reload.setVisibility(View.GONE) //Just hiding the reload button for now.
 
 //        --- Old reload button ---
@@ -76,11 +82,23 @@ class MainActivity : AppCompatActivity() {
                         val chance= (0..10).random()
 
                         if (chance >= 7) { //Just an easy random selection for now.
-                            toast("Right! It's a match!").setGravity(Gravity.CENTER, 0, 0)
-                            val intent = Intent(this@MainActivity, Main3Activity::class.java)
-                            intent.putExtra("character", character.toString())
-                            startActivity(intent)
-                            finish()
+                            alert(Appcompat, "It's a match! Send a message?"){
+                                negativeButton("Nope!") { moogleApi() }
+                                positiveButton("Yes!") {
+                                    val intent = Intent(this@MainActivity, Main3Activity::class.java)
+                                    intent.putExtra("character", character.toString())
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }.show().apply {
+                                getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
+                                getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
+                            }
+
+//                            val intent = Intent(this@MainActivity, Main3Activity::class.java)
+//                            intent.putExtra("character", character.toString())
+//                            startActivity(intent)
+//                            finish()
                         }
                         else {
                             toast("Bummer! No match.").setGravity(Gravity.CENTER, 0, 0)
@@ -94,7 +112,6 @@ class MainActivity : AppCompatActivity() {
                         moogleApi()
                     }
                 })
-
             }
         }
 
@@ -122,6 +139,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         val URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
-        val URL_ALL_CHARACTERS = "https://www.moogleapi.com/api/characters"
     }
 }
