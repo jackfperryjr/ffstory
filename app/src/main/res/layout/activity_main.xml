@@ -35,7 +35,7 @@
             android:layout_marginTop="8dp" />
     <ProgressBar
             android:layout_width="0dp"
-            android:layout_height="0dp" tools:srcCompat="@tools:sample/avatars"
+            android:layout_height="469dp" tools:srcCompat="@tools:sample/avatars"
             android:id="@+id/spinner"
             android:progressDrawable="@drawable/loading"
             app:layout_constraintStart_toStartOf="parent"

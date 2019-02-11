@@ -11,7 +11,6 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.view.Gravity
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +26,8 @@ import com.squareup.picasso.Picasso
 class MainActivity : AppCompatActivity() {
 
 //    private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
+    private var URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
+    private var chance: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +67,9 @@ class MainActivity : AppCompatActivity() {
                 onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
                     override fun swipeRight() {
 
-                        val chance= (0..10).random()
+                        val chance= diceRoll()
 
-                        if (chance >= 7) { //Just an easy random selection for now.
+                        if (chance >= 15) { //Just an easy random selection for now.
                             val handler = Handler()
                             handler.postDelayed(Runnable {
                                 alert(Appcompat, "You liked them! They like you! Send a message?"){
@@ -85,8 +86,15 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }, 700)
                         }
-                        else if (chance == 3) {
+                        else if (chance in 7..14) {
                             toast("Fingers crossed!").setGravity(Gravity.CENTER, 0, 0)
+                            val handler = Handler()
+                            handler.postDelayed (Runnable {
+                                moogleApi()
+                            }, 700)
+                        }
+                        else if (chance == 3) {
+                            toast("Oh. My. Gosh.").setGravity(Gravity.CENTER, 0, 0)
                             val handler = Handler()
                             handler.postDelayed (Runnable {
                                 moogleApi()
@@ -101,12 +109,12 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     override fun swipeLeft() {
-                        val chance= (0..10).random()
+                        val chance= diceRoll()
 
-                        if (chance >= 7) {
+                        if (chance >= 15) {
                             toast("They didn't like you either!").setGravity(Gravity.CENTER, 0, 0)
                         }
-                        else if (chance == 3 ) {
+                        else if (chance in 7..14) {
                             toast("They really really liked you!").setGravity(Gravity.CENTER, 0, 0)
                         }
                         else {
@@ -128,8 +136,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
-        var titleBar = SpannableString("Moogle Matcher")
-        titleBar.setSpan(RelativeSizeSpan(1.5f), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        var titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -140,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         setTitle(titleBar)
     }
 
-    companion object {
-        val URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
+    fun diceRoll(): Int {
+        return (0..20).random()
     }
 }
