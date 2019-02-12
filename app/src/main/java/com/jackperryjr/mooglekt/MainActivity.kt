@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
 //    private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
     private var URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
-    private var chance: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
