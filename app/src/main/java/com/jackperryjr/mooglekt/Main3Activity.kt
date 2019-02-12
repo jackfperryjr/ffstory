@@ -26,132 +26,55 @@ class Main3Activity : AppCompatActivity() {
         setTitle()
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+        //Getting character data and setting it.
         val character = JSONObject(getIntent().getStringExtra("character"))
-
         val characterName = findViewById<TextView>(R.id.character_name)
         characterName.text = character.optString("name")
+        val characterMatch = character.optString("name").split(" ")
 
+        //Setting avatar.
         val characterImageUrl = character.optString("picture")
         val characterImage = findViewById<ImageButton>(R.id.character_avatar)
-
         Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
 
+        //Setting intent to go to info screen.
         val intent = Intent(this@Main3Activity, Main2Activity::class.java)
         intent.putExtra("character", character.toString())
 
-        var info = findViewById<ImageButton>(R.id.character_avatar)
-
         //Button to read information about character.
+        var info = findViewById<ImageButton>(R.id.character_avatar)
         info.setOnClickListener { view ->
             view.context.startActivity(intent)
         }
 
-        var message = findViewById<EditText>(R.id.compose_message)
-        var send = findViewById<Button>(R.id.send_button)
-
-        var messages = findViewById<ListView>(R.id.messages)
-        val listMessages = ArrayList<String>()
-        val adapter = ArrayAdapter<String>(
-            this,
-            android.R.layout.simple_list_item_1,
-            listMessages
-        )
-
-        messages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
-        messages.setAdapter(adapter)
-
+        //Button to go back to home screen.
         var back = findViewById<Button>(R.id.back_button)
         back.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
+        //Setting up chat system.
+        var message = findViewById<EditText>(R.id.compose_message)
+        var messages = findViewById<ListView>(R.id.messages)
+        val listMessages = ArrayList<String>()
+        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listMessages)
+        messages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
+        messages.setAdapter(adapter)
+
+        //Send message on key press enter.
         message.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                //Perform Code
-                listMessages.add("You: " + message.getText())
-                message.getText().clear()
-                messages.invalidateViews()
-                closeKeyboard()
-                var characterMatch = character.optString("name").split(" ")
-                var responseTime = responseDiceRoll()
-
-                val handler = Handler()
-                if (listMessages.size == 1) {
-                    handler.postDelayed(Runnable {
-                        listMessages.add(characterMatch[0] + ": Hey there!")
-                        messages.invalidateViews()
-                    }, responseTime)
-                } else {
-                    var responseIndex = diceRoll()
-                    val responseMessages = ArrayList<String>()
-                    responseMessages.add(characterMatch[0] + ": Hey there!")
-                    responseMessages.add(characterMatch[0] + ": How's the weather?")
-                    responseMessages.add(characterMatch[0] + ": What's your favorite game?")
-                    responseMessages.add(characterMatch[0] + ": Lovely.")
-                    responseMessages.add(characterMatch[0] + ": Yeah!")
-                    responseMessages.add(characterMatch[0] + ": Nope.")
-                    responseMessages.add(characterMatch[0] + ": OMG")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": LOL")
-                    responseMessages.add(characterMatch[0] + ": What?!")
-                    responseMessages.add(characterMatch[0] + ": You're so funny.")
-                    responseMessages.add(characterMatch[0] + ": ...")
-                    responseMessages.add(characterMatch[0] + ": I love what I do.")
-                    responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-                    responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-                    handler.postDelayed(Runnable {
-                        listMessages.add(responseMessages[responseIndex])
-                        messages.invalidateViews()
-                    }, responseTime)
-                }
-
+                sendMessage(listMessages, messages, message, characterMatch)
                 return@OnKeyListener true
             }
             false
         })
 
+        //Send message on button click.
+        var send = findViewById<Button>(R.id.send_button)
         send.setOnClickListener {
-            listMessages.add("You: " + message.getText())
-            message.getText().clear()
-            messages.invalidateViews()
-            closeKeyboard()
-            val handler = Handler()
-            var responseTime = responseDiceRoll()
-            var responseIndex = diceRoll()
-            var characterMatch = character.optString("name").split(" ")
-            val responseMessages = ArrayList<String>()
-            responseMessages.add(characterMatch[0] + ": Hey there!")
-            responseMessages.add(characterMatch[0] + ": How's the weather?")
-            responseMessages.add(characterMatch[0] + ": What's your favorite game?")
-            responseMessages.add(characterMatch[0] + ": Lovely.")
-            responseMessages.add(characterMatch[0] + ": Yeah!")
-            responseMessages.add(characterMatch[0] + ": Nope.")
-            responseMessages.add(characterMatch[0] + ": OMG")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": LOL")
-            responseMessages.add(characterMatch[0] + ": What?!")
-            responseMessages.add(characterMatch[0] + ": You're so funny.")
-            responseMessages.add(characterMatch[0] + ": ...")
-            responseMessages.add(characterMatch[0] + ": I love what I do.")
-            responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-            responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-            handler.postDelayed(Runnable {
-                listMessages.add(responseMessages[responseIndex])
-                messages.invalidateViews()
-            }, responseTime)
+            sendMessage(listMessages, messages, message, characterMatch)
         }
     }
 
@@ -163,41 +86,40 @@ class Main3Activity : AppCompatActivity() {
         )
     }
 
-    fun sendMessage(characterMatch : String) {
-//        listMessages.add("You: " + message.getText())
-//        message.getText().clear()
-//        messages.invalidateViews()
-//        closeKeyboard()
-//        val handler = Handler()
-//        var responseTime = responseDiceRoll()
-//        var responseIndex = diceRoll()
-//        var characterMatch = character.optString("name").split(" ")
-//        val responseMessages = ArrayList<String>()
-//        responseMessages.add(characterMatch[0] + ": Hey there!")
-//        responseMessages.add(characterMatch[0] + ": How's the weather?")
-//        responseMessages.add(characterMatch[0] + ": What's your favorite game?")
-//        responseMessages.add(characterMatch[0] + ": Lovely.")
-//        responseMessages.add(characterMatch[0] + ": Yeah!")
-//        responseMessages.add(characterMatch[0] + ": Nope.")
-//        responseMessages.add(characterMatch[0] + ": OMG")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": LOL")
-//        responseMessages.add(characterMatch[0] + ": What?!")
-//        responseMessages.add(characterMatch[0] + ": You're so funny.")
-//        responseMessages.add(characterMatch[0] + ": ...")
-//        responseMessages.add(characterMatch[0] + ": I love what I do.")
-//        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-//        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-//        handler.postDelayed(Runnable {
-//            listMessages.add(responseMessages[responseIndex])
-//            messages.invalidateViews()
-//        }, responseTime)
+    fun sendMessage(listMessages : ArrayList<String>, messages : ListView, message : EditText, characterMatch : List<String>) {
+        listMessages.add("You: " + message.getText())
+        message.getText().clear()
+        messages.invalidateViews()
+        closeKeyboard()
+        val handler = Handler()
+        var responseTime = responseDiceRoll()
+        var responseIndex = diceRoll()
+        val responseMessages = ArrayList<String>()
+        responseMessages.add(characterMatch[0] + ": Hey there!")
+        responseMessages.add(characterMatch[0] + ": How's the weather?")
+        responseMessages.add(characterMatch[0] + ": What's your favorite game?")
+        responseMessages.add(characterMatch[0] + ": Lovely.")
+        responseMessages.add(characterMatch[0] + ": Yeah!")
+        responseMessages.add(characterMatch[0] + ": Nope.")
+        responseMessages.add(characterMatch[0] + ": OMG")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": What?!")
+        responseMessages.add(characterMatch[0] + ": You're so funny.")
+        responseMessages.add(characterMatch[0] + ": ...")
+        responseMessages.add(characterMatch[0] + ": I love what I do.")
+        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+        handler.postDelayed(Runnable {
+            listMessages.add(responseMessages[responseIndex])
+            messages.invalidateViews()
+        }, responseTime)
     }
 
     fun diceRoll(): Int {
