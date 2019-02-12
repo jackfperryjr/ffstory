@@ -25,9 +25,7 @@ class Main2Activity : AppCompatActivity() {
         var back = findViewById<Button>(R.id.back_button)
 
         back.setOnClickListener(View.OnClickListener { view ->
-            val intent = Intent(view.context, MainActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            view.context.startActivity(intent)
+            this.finish()
         })
     }
 

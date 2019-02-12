@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">MoogleApi</string>
+    <string name="app_name">Moogle Matchmaker</string>
     <string name="app_title">A Final Fantasy App!</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_home">Home</string>

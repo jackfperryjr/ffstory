@@ -31,22 +31,20 @@ class Main3Activity : AppCompatActivity() {
         val characterName = findViewById<TextView>(R.id.character_name)
         characterName.text = character.optString("name")
 
-        val characterAge = findViewById<TextView>(R.id.character_age)
-        characterAge.text = character.optString("age")
-
-        val characterGender = findViewById<TextView>(R.id.character_gender)
-        characterGender.text = character.optString("gender")
-
-        val characterRace = findViewById<TextView>(R.id.character_race)
-        characterRace.text = character.optString("race")
-
-        val characterJob = findViewById<TextView>(R.id.character_job)
-        characterJob.text = character.optString("job")
-
         val characterImageUrl = character.optString("picture")
-        val characterImage = findViewById<ImageView>(R.id.character_avatar)
+        val characterImage = findViewById<ImageButton>(R.id.character_avatar)
 
         Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
+
+        val intent = Intent(this@Main3Activity, Main2Activity::class.java)
+        intent.putExtra("character", character.toString())
+
+        var info = findViewById<ImageButton>(R.id.character_avatar)
+
+        //Button to read information about character.
+        info.setOnClickListener { view ->
+            view.context.startActivity(intent)
+        }
 
         var message = findViewById<EditText>(R.id.compose_message)
         var send = findViewById<Button>(R.id.send_button)
@@ -75,36 +73,45 @@ class Main3Activity : AppCompatActivity() {
                 message.getText().clear()
                 messages.invalidateViews()
                 closeKeyboard()
-                val handler = Handler()
-                var responseTime = responseDiceRoll()
-                var responseIndex = diceRoll()
                 var characterMatch = character.optString("name").split(" ")
-                val responseMessages = ArrayList<String>()
-                responseMessages.add(characterMatch[0] + ": Hey there!")
-                responseMessages.add(characterMatch[0] + ": How's the weather?")
-                responseMessages.add(characterMatch[0] + ": What's your favorite game?")
-                responseMessages.add(characterMatch[0] + ": Lovely.")
-                responseMessages.add(characterMatch[0] + ": Yeah!")
-                responseMessages.add(characterMatch[0] + ": Nope.")
-                responseMessages.add(characterMatch[0] + ": OMG")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": LOL")
-                responseMessages.add(characterMatch[0] + ": What?!")
-                responseMessages.add(characterMatch[0] + ": You're so funny.")
-                responseMessages.add(characterMatch[0] + ": ...")
-                responseMessages.add(characterMatch[0] + ": I love what I do.")
-                responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-                responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-                handler.postDelayed(Runnable {
-                    listMessages.add(responseMessages[responseIndex])
-                    messages.invalidateViews()
-                }, responseTime)
+                var responseTime = responseDiceRoll()
+
+                val handler = Handler()
+                if (listMessages.size == 1) {
+                    handler.postDelayed(Runnable {
+                        listMessages.add(characterMatch[0] + ": Hey there!")
+                        messages.invalidateViews()
+                    }, responseTime)
+                } else {
+                    var responseIndex = diceRoll()
+                    val responseMessages = ArrayList<String>()
+                    responseMessages.add(characterMatch[0] + ": Hey there!")
+                    responseMessages.add(characterMatch[0] + ": How's the weather?")
+                    responseMessages.add(characterMatch[0] + ": What's your favorite game?")
+                    responseMessages.add(characterMatch[0] + ": Lovely.")
+                    responseMessages.add(characterMatch[0] + ": Yeah!")
+                    responseMessages.add(characterMatch[0] + ": Nope.")
+                    responseMessages.add(characterMatch[0] + ": OMG")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": LOL")
+                    responseMessages.add(characterMatch[0] + ": What?!")
+                    responseMessages.add(characterMatch[0] + ": You're so funny.")
+                    responseMessages.add(characterMatch[0] + ": ...")
+                    responseMessages.add(characterMatch[0] + ": I love what I do.")
+                    responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+                    responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+                    handler.postDelayed(Runnable {
+                        listMessages.add(responseMessages[responseIndex])
+                        messages.invalidateViews()
+                    }, responseTime)
+                }
+
                 return@OnKeyListener true
             }
             false
@@ -154,6 +161,43 @@ class Main3Activity : AppCompatActivity() {
             this.getCurrentFocus().getWindowToken(),
             InputMethodManager.HIDE_NOT_ALWAYS
         )
+    }
+
+    fun sendMessage(characterMatch : String) {
+//        listMessages.add("You: " + message.getText())
+//        message.getText().clear()
+//        messages.invalidateViews()
+//        closeKeyboard()
+//        val handler = Handler()
+//        var responseTime = responseDiceRoll()
+//        var responseIndex = diceRoll()
+//        var characterMatch = character.optString("name").split(" ")
+//        val responseMessages = ArrayList<String>()
+//        responseMessages.add(characterMatch[0] + ": Hey there!")
+//        responseMessages.add(characterMatch[0] + ": How's the weather?")
+//        responseMessages.add(characterMatch[0] + ": What's your favorite game?")
+//        responseMessages.add(characterMatch[0] + ": Lovely.")
+//        responseMessages.add(characterMatch[0] + ": Yeah!")
+//        responseMessages.add(characterMatch[0] + ": Nope.")
+//        responseMessages.add(characterMatch[0] + ": OMG")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": LOL")
+//        responseMessages.add(characterMatch[0] + ": What?!")
+//        responseMessages.add(characterMatch[0] + ": You're so funny.")
+//        responseMessages.add(characterMatch[0] + ": ...")
+//        responseMessages.add(characterMatch[0] + ": I love what I do.")
+//        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+//        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+//        handler.postDelayed(Runnable {
+//            listMessages.add(responseMessages[responseIndex])
+//            messages.invalidateViews()
+//        }, responseTime)
     }
 
     fun diceRoll(): Int {
