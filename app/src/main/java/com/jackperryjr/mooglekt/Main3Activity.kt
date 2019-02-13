@@ -42,21 +42,21 @@ class Main3Activity : AppCompatActivity() {
         intent.putExtra("character", character.toString())
 
         //Button to read information about character.
-        var info = findViewById<ImageButton>(R.id.character_avatar)
+        val info = findViewById<ImageButton>(R.id.character_avatar)
         info.setOnClickListener { view ->
             view.context.startActivity(intent)
         }
 
         //Button to go back to home screen.
-        var back = findViewById<Button>(R.id.back_button)
+        val back = findViewById<Button>(R.id.back_button)
         back.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         //Setting up chat system.
-        var message = findViewById<EditText>(R.id.compose_message)
-        var messages = findViewById<ListView>(R.id.messages)
+        val message = findViewById<EditText>(R.id.compose_message)
+        val messages = findViewById<ListView>(R.id.messages)
         val listMessages = ArrayList<String>()
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listMessages)
         messages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
@@ -72,7 +72,7 @@ class Main3Activity : AppCompatActivity() {
         })
 
         //Send message on button click.
-        var send = findViewById<Button>(R.id.send_button)
+        val send = findViewById<Button>(R.id.send_button)
         send.setOnClickListener {
             sendMessage(listMessages, messages, message, characterMatch)
         }
@@ -86,14 +86,14 @@ class Main3Activity : AppCompatActivity() {
         )
     }
 
-    fun sendMessage(listMessages : ArrayList<String>, messages : ListView, message : EditText, characterMatch : List<String>) {
+    private fun sendMessage(listMessages : ArrayList<String>, messages : ListView, message : EditText, characterMatch : List<String>) {
         listMessages.add("You: " + message.getText())
         message.getText().clear()
         messages.invalidateViews()
         closeKeyboard()
         val handler = Handler()
-        var responseTime = responseDiceRoll()
-        var responseIndex = diceRoll()
+        val responseTime = responseDiceRoll()
+        val responseIndex = diceRoll()
         val responseMessages = ArrayList<String>()
         responseMessages.add(characterMatch[0] + ": Hey there!")
         responseMessages.add(characterMatch[0] + ": How's the weather?")
@@ -112,7 +112,7 @@ class Main3Activity : AppCompatActivity() {
         responseMessages.add(characterMatch[0] + ": LOL")
         responseMessages.add(characterMatch[0] + ": What?!")
         responseMessages.add(characterMatch[0] + ": You're so funny.")
-        responseMessages.add(characterMatch[0] + ": ...")
+        responseMessages.add(characterMatch[0] + ": Word.")
         responseMessages.add(characterMatch[0] + ": I love what I do.")
         responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
         responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
@@ -122,7 +122,7 @@ class Main3Activity : AppCompatActivity() {
         }, responseTime)
     }
 
-    fun diceRoll(): Int {
+    private fun diceRoll(): Int {
         return (0..20).random()
     }
 
@@ -131,7 +131,7 @@ class Main3Activity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
-        var titleBar = SpannableString("Moogle Matchmaker")
+        val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

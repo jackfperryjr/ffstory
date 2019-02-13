@@ -1,13 +1,11 @@
 package com.jackperryjr.mooglekt
 
-import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.view.View
 import android.widget.*
 
@@ -22,7 +20,7 @@ class Main2Activity : AppCompatActivity() {
 
         setCharacterData()
 
-        var back = findViewById<Button>(R.id.back_button)
+        val back = findViewById<Button>(R.id.back_button)
 
         back.setOnClickListener(View.OnClickListener { view ->
             this.finish()
@@ -71,7 +69,7 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
-        var titleBar = SpannableString("Moogle Matchmaker")
+        val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

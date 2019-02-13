@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity, Main2Activity::class.java)
                 intent.putExtra("character", character.toString())
 
-                var info = findViewById<ImageButton>(R.id.character_avatar)
+                val info = findViewById<ImageButton>(R.id.character_avatar)
 
                 //Button to read information about character.
                 info.setOnClickListener { view ->
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
-        var titleBar = SpannableString("Moogle Matchmaker")
+        val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         setTitle(titleBar)
     }
 
-    fun diceRoll(): Int {
+    private fun diceRoll(): Int {
         return (0..20).random()
     }
 }
