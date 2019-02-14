@@ -48,21 +48,19 @@ class MainActivity : AppCompatActivity() {
 
                 character_obj.text = character.optString("name")
                 val characterImageUrl = character.optString("picture")
-                val characterImage = findViewById<ImageButton>(R.id.character_avatar)
+                val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
 
-                Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
+                Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
 
                 val intent = Intent(this@MainActivity, Main2Activity::class.java)
                 intent.putExtra("character", character.toString())
 
-                val info = findViewById<ImageButton>(R.id.character_avatar)
-
                 //Button to read information about character.
-                info.setOnClickListener { view ->
+                character_obj.setOnClickListener { view ->
                     view.context.startActivity(intent)
                 }
 
-                val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_obj))
+                val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_avatar))
                 onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
                     override fun swipeRight() {
 
@@ -124,6 +122,9 @@ class MainActivity : AppCompatActivity() {
                             moogleApi()
                         }, 700)
                     }
+//                    override fun onClick() {
+//                        applicationContext.startActivity(intent)
+//                    }
                 })
             }
         }

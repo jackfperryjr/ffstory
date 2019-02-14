@@ -34,16 +34,15 @@ class Main3Activity : AppCompatActivity() {
 
         //Setting avatar.
         val characterImageUrl = character.optString("picture")
-        val characterImage = findViewById<ImageButton>(R.id.character_avatar)
-        Picasso.with(applicationContext).load(characterImageUrl).into(characterImage)
+        val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
+        Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
 
         //Setting intent to go to info screen.
         val intent = Intent(this@Main3Activity, Main2Activity::class.java)
         intent.putExtra("character", character.toString())
 
         //Button to read information about character.
-        val info = findViewById<ImageButton>(R.id.character_avatar)
-        info.setOnClickListener { view ->
+        characterAvatar.setOnClickListener { view ->
             view.context.startActivity(intent)
         }
 
@@ -65,8 +64,10 @@ class Main3Activity : AppCompatActivity() {
         //Send message on key press enter.
         message.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                sendMessage(listMessages, messages, message, characterMatch)
-                return@OnKeyListener true
+                if (message.text != null && !message.text.isEmpty()) {
+                    sendMessage(listMessages, messages, message, characterMatch)
+                    return@OnKeyListener true
+                }
             }
             false
         })
@@ -74,7 +75,9 @@ class Main3Activity : AppCompatActivity() {
         //Send message on button click.
         val send = findViewById<Button>(R.id.send_button)
         send.setOnClickListener {
-            sendMessage(listMessages, messages, message, characterMatch)
+            if (message.text != null && !message.text.isEmpty()) {
+                sendMessage(listMessages, messages, message, characterMatch)
+            }
         }
     }
 
@@ -87,9 +90,9 @@ class Main3Activity : AppCompatActivity() {
     }
 
     private fun sendMessage(listMessages : ArrayList<String>, messages : ListView, message : EditText, characterMatch : List<String>) {
-        listMessages.add("You: " + message.getText())
-        message.getText().clear()
+        listMessages.add("You: " + message.text)
         messages.invalidateViews()
+        message.text.clear()
         closeKeyboard()
         val handler = Handler()
         val responseTime = responseDiceRoll()
@@ -101,23 +104,27 @@ class Main3Activity : AppCompatActivity() {
         responseMessages.add(characterMatch[0] + ": Lovely.")
         responseMessages.add(characterMatch[0] + ": Yeah!")
         responseMessages.add(characterMatch[0] + ": Nope.")
-        responseMessages.add(characterMatch[0] + ": OMG")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
-        responseMessages.add(characterMatch[0] + ": LOL")
+        responseMessages.add(characterMatch[0] + ": That's so nice.")
+        responseMessages.add(characterMatch[0] + ": :-)")
+        responseMessages.add(characterMatch[0] + ": ;-)")
+        responseMessages.add(characterMatch[0] + ": Haha!")
+        responseMessages.add(characterMatch[0] + ": I don't think so.")
+        responseMessages.add(characterMatch[0] + ": Maybe.")
+        responseMessages.add(characterMatch[0] + ": I would never!")
+        responseMessages.add(characterMatch[0] + ": Maybe.")
+        responseMessages.add(characterMatch[0] + ": Yeah.")
         responseMessages.add(characterMatch[0] + ": What?!")
         responseMessages.add(characterMatch[0] + ": You're so funny.")
         responseMessages.add(characterMatch[0] + ": Word.")
         responseMessages.add(characterMatch[0] + ": I love what I do.")
         responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
-        responseMessages.add(characterMatch[0] + ": Final Fantasy is so cool.")
+        responseMessages.add(characterMatch[0] + ": This developer is so cool.")
         handler.postDelayed(Runnable {
-            listMessages.add(responseMessages[responseIndex])
+            if (listMessages.size <= 1) {
+                listMessages.add(responseMessages[0])
+            } else {
+                listMessages.add(responseMessages[responseIndex])
+            }
             messages.invalidateViews()
         }, responseTime)
     }

@@ -1,6 +1,5 @@
 package com.jackperryjr.mooglekt
 
-import android.widget.Toast
 import android.view.MotionEvent
 import android.view.GestureDetector
 import android.content.Context
@@ -54,6 +53,11 @@ internal class OnSwipeTouchListener(internal var context: Context, mainView: Vie
 
             return result
         }
+
+        override fun onSingleTapUp(e: MotionEvent): Boolean {
+            onClick()
+            return true
+        }
     }
     companion object {
 
@@ -69,6 +73,10 @@ internal class OnSwipeTouchListener(internal var context: Context, mainView: Vie
     fun onSwipeLeft() {
         //Toast.makeText(context, "Left", Toast.LENGTH_SHORT).show()
         this.onSwipe?.swipeLeft()
+    }
+
+    fun onClick() {
+        this.onClick()
     }
 
     fun onSwipeTop() {}
