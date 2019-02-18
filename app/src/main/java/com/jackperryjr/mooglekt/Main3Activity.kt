@@ -19,7 +19,6 @@ import java.util.*
 import com.squareup.picasso.Picasso
 
 import org.json.JSONObject
-import com.github.bassaer.chatmessageview.view.ChatView
 
 class Main3Activity : AppCompatActivity() {
 
