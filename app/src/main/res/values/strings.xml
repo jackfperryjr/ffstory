@@ -13,21 +13,27 @@
     <string name="title_heading">A Final Fantasy App!</string>
     <string name="avatar">character avatar</string>
     <string name="character_name">
-        Name: <xliff:g id="name">%1$s</xliff:g>
+        Name:
+        <xliff:g id="name">%1$s</xliff:g>
     </string>
     <string name="character_age">
-        Age: <xliff:g id="age">%1$s</xliff:g>
+        Age:
+        <xliff:g id="age">%1$s</xliff:g>
     </string>
     <string name="character_race">
-        Race: <xliff:g id="race">%1$s</xliff:g>
+        Race:
+        <xliff:g id="race">%1$s</xliff:g>
     </string>
     <string name="character_gender">
-        Job Gender: <xliff:g id="gender">%1$s</xliff:g>
+        Job Gender:
+        <xliff:g id="gender">%1$s</xliff:g>
     </string>
     <string name="character_job">
-        Job Class: <xliff:g id="job">%1$s</xliff:g>
+        Job Class:
+        <xliff:g id="job">%1$s</xliff:g>
     </string>
     <string name="character_origin">
-        Origin: <xliff:g id="origin">%1$s</xliff:g>
+        Origin:
+        <xliff:g id="origin">%1$s</xliff:g>
     </string>
 </resources>

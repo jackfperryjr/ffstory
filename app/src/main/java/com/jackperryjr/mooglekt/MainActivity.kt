@@ -46,9 +46,10 @@ class MainActivity : AppCompatActivity() {
                 //Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
 
-                character_obj.text = character.optString("name")
+                val characterName = findViewById<TextView>(R.id.character_name)
                 val characterImageUrl = character.optString("picture")
                 val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
+                characterName.text = character.optString("name")
 
                 Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
 
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("character", character.toString())
 
                 //Button to read information about character.
-                character_obj.setOnClickListener { view ->
+                characterName.setOnClickListener { view ->
                     view.context.startActivity(intent)
                 }
 

@@ -14,9 +14,12 @@ import android.widget.*
 import android.content.Context
 import android.widget.ArrayAdapter
 
+import java.util.*
+
 import com.squareup.picasso.Picasso
 
 import org.json.JSONObject
+import com.github.bassaer.chatmessageview.view.ChatView
 
 class Main3Activity : AppCompatActivity() {
 
@@ -24,7 +27,7 @@ class Main3Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
         setTitle()
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         //Getting character data and setting it.
         val character = JSONObject(getIntent().getStringExtra("character"))
@@ -61,13 +64,12 @@ class Main3Activity : AppCompatActivity() {
         messages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
         messages.setAdapter(adapter)
 
+
         //Send message on key press enter.
         message.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
-                if (message.text != null && !message.text.isEmpty()) {
-                    sendMessage(listMessages, messages, message, characterMatch)
-                    return@OnKeyListener true
-                }
+                sendMessage(listMessages, messages, message, characterMatch)
+                return@OnKeyListener true
             }
             false
         })
@@ -75,9 +77,7 @@ class Main3Activity : AppCompatActivity() {
         //Send message on button click.
         val send = findViewById<Button>(R.id.send_button)
         send.setOnClickListener {
-            if (message.text != null && !message.text.isEmpty()) {
-                sendMessage(listMessages, messages, message, characterMatch)
-            }
+            sendMessage(listMessages, messages, message, characterMatch)
         }
     }
 
@@ -105,7 +105,6 @@ class Main3Activity : AppCompatActivity() {
         responseMessages.add(characterMatch[0] + ": Yeah!")
         responseMessages.add(characterMatch[0] + ": Nope.")
         responseMessages.add(characterMatch[0] + ": That's so nice.")
-        responseMessages.add(characterMatch[0] + ": :-)")
         responseMessages.add(characterMatch[0] + ": ;-)")
         responseMessages.add(characterMatch[0] + ": Haha!")
         responseMessages.add(characterMatch[0] + ": I don't think so.")
