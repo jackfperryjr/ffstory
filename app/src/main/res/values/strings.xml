@@ -12,28 +12,12 @@
     <string name="back_button">back</string>
     <string name="title_heading">A Final Fantasy App!</string>
     <string name="avatar">character avatar</string>
-    <string name="character_name">
-        Name:
-        <xliff:g id="name">%1$s</xliff:g>
-    </string>
-    <string name="character_age">
-        Age:
-        <xliff:g id="age">%1$s</xliff:g>
-    </string>
-    <string name="character_race">
-        Race:
-        <xliff:g id="race">%1$s</xliff:g>
-    </string>
-    <string name="character_gender">
-        Job Gender:
-        <xliff:g id="gender">%1$s</xliff:g>
-    </string>
-    <string name="character_job">
-        Job Class:
-        <xliff:g id="job">%1$s</xliff:g>
-    </string>
-    <string name="character_origin">
-        Origin:
-        <xliff:g id="origin">%1$s</xliff:g>
-    </string>
+    <string name="error_message_name">Enter Full Name</string>
+    <string name="error_message_email">Enter Valid Email</string>
+    <string name="error_message_age">Enter Age</string>
+    <string name="error_message_password">Enter Password</string>
+    <string name="success_message">Registration Successful</string>
+    <string name="error_email_exists">Email Already Exists</string>
+    <string name="error_password_match">Password Does Not Matches</string>
+    <string name="error_valid_email_password">Wrong Email or Password</string>
 </resources>

@@ -15,29 +15,36 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
+import android.view.Gravity
 
-class LoginActivity : AppCompatActivity() {
+import org.jetbrains.anko.*
 
-    private val activity = this@LoginActivity
+class SignupActivity : AppCompatActivity() {
+
+    private val activity = this@SignupActivity
 
     private lateinit var nestedScrollView: NestedScrollView
 
+    private lateinit var textInputLayoutName: TextInputLayout
     private lateinit var textInputLayoutEmail: TextInputLayout
     private lateinit var textInputLayoutPassword: TextInputLayout
+    private lateinit var textInputLayoutConfirmPassword: TextInputLayout
 
+    private lateinit var textInputEditTextName: TextInputEditText
     private lateinit var textInputEditTextEmail: TextInputEditText
     private lateinit var textInputEditTextPassword: TextInputEditText
+    private lateinit var textInputEditTextConfirmPassword: TextInputEditText
 
-    private lateinit var appCompatButtonLogin: AppCompatButton
-
-    private lateinit var textViewLinkRegister: AppCompatTextView
+    private lateinit var appCompatButtonRegister: AppCompatButton
+    private lateinit var appCompatTextViewLoginLink: AppCompatTextView
 
     private lateinit var inputValidation: InputValidation
     private lateinit var databaseHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+
+        setContentView(R.layout.activity_signup)
         setTitle()
 
         // hiding the action bar
@@ -49,72 +56,88 @@ class LoginActivity : AppCompatActivity() {
         // initializing the objects
         initObjects()
 
-        val loginButton = findViewById<View>(R.id.appCompatButtonLogin)
-        loginButton.setOnClickListener { view ->
-//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//            view.context.startActivity(intent)
-            verifyFromSQLite()
+        val signupButton = findViewById<View>(R.id.appCompatButtonRegister)
+        signupButton.setOnClickListener { view ->
+            postDataToSQLite()
+            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+            view.context.startActivity(intent)
+            toast("Welcome! Start swiping!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
+        }
+
+        val loginLink = findViewById<AppCompatTextView>(R.id.appCompatTextViewLoginLink)
+        loginLink.setOnClickListener { view ->
+            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+            view.context.startActivity(intent)
             finish()
         }
-
-        val signupLink = findViewById<AppCompatTextView>(R.id.textViewLinkRegister)
-        signupLink.setOnClickListener { view ->
-            val intent = Intent(this@LoginActivity, SignupActivity::class.java)
-            view.context.startActivity(intent)
-        }
     }
 
+    /**
+     * This method is to initialize views
+     */
     private fun initViews() {
-
         nestedScrollView = findViewById<View>(R.id.nestedScrollView) as NestedScrollView
 
+        textInputLayoutName = findViewById<View>(R.id.textInputLayoutName) as TextInputLayout
         textInputLayoutEmail = findViewById<View>(R.id.textInputLayoutEmail) as TextInputLayout
         textInputLayoutPassword = findViewById<View>(R.id.textInputLayoutPassword) as TextInputLayout
+        textInputLayoutConfirmPassword = findViewById<View>(R.id.textInputLayoutConfirmPassword) as TextInputLayout
 
+        textInputEditTextName = findViewById<View>(R.id.textInputEditTextName) as TextInputEditText
         textInputEditTextEmail = findViewById<View>(R.id.textInputEditTextEmail) as TextInputEditText
         textInputEditTextPassword = findViewById<View>(R.id.textInputEditTextPassword) as TextInputEditText
+        textInputEditTextConfirmPassword = findViewById<View>(R.id.textInputEditTextConfirmPassword) as TextInputEditText
 
-        appCompatButtonLogin = findViewById<View>(R.id.appCompatButtonLogin) as AppCompatButton
+        appCompatButtonRegister = findViewById<View>(R.id.appCompatButtonRegister) as AppCompatButton
 
-        textViewLinkRegister = findViewById<View>(R.id.textViewLinkRegister) as AppCompatTextView
-
-    }
-
-    private fun initObjects() {
-
-        databaseHelper = DatabaseHelper(activity)
-        inputValidation = InputValidation(activity)
+        appCompatTextViewLoginLink = findViewById<View>(R.id.appCompatTextViewLoginLink) as AppCompatTextView
 
     }
 
     /**
-     * This method is to validate the input text fields and verify login credentials from SQLite
+     * This method is to initialize objects to be used
      */
-    private fun verifyFromSQLite() {
+    private fun initObjects() {
+        inputValidation = InputValidation(activity)
+        databaseHelper = DatabaseHelper(activity)
+    }
 
+    /**
+     * This method is to validate the input text fields and post data to SQLite
+     */
+    private fun postDataToSQLite() {
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
+            return
+        }
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
             return
         }
         if (!inputValidation.isInputEditTextEmail(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
             return
         }
-        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_email))) {
+        if (!inputValidation.isInputEditTextFilled(textInputEditTextPassword, textInputLayoutPassword, getString(R.string.error_message_password))) {
+            return
+        }
+        if (!inputValidation.isInputEditTextMatches(textInputEditTextPassword, textInputEditTextConfirmPassword,
+                textInputLayoutConfirmPassword, getString(R.string.error_password_match))) {
             return
         }
 
-        if (databaseHelper.checkUser(textInputEditTextEmail.text.toString().trim { it <= ' ' }, textInputEditTextPassword.text.toString().trim { it <= ' ' })) {
+        if (!databaseHelper.checkUser(textInputEditTextEmail.text.toString().trim())) {
 
+            var user = User(username = textInputEditTextName.text.toString().trim(),
+                email = textInputEditTextEmail.text.toString().trim(),
+                password = textInputEditTextPassword.text.toString().trim())
 
-            val intent = Intent(activity, MainActivity::class.java)
-            //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
+            databaseHelper.addUser(user)
+
+            // Snack Bar to show success message that record saved successfully
+            Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
             emptyInputEditText()
-            startActivity(intent)
-
 
         } else {
-
-            // Snack Bar to show success message that record is wrong
-            Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
+            // Snack Bar to show error message that record already exists
+            Snackbar.make(nestedScrollView, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG).show()
         }
     }
 
@@ -122,8 +145,10 @@ class LoginActivity : AppCompatActivity() {
      * This method is to empty all input edit text
      */
     private fun emptyInputEditText() {
+        textInputEditTextName.text = null
         textInputEditTextEmail.text = null
         textInputEditTextPassword.text = null
+        textInputEditTextConfirmPassword.text = null
     }
 
     private fun setTitle() { //Used to color the title.

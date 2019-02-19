@@ -19,9 +19,6 @@ import java.util.*
 import com.squareup.picasso.Picasso
 
 import org.json.JSONObject
-import android.view.LayoutInflater
-
-
 
 class Main3Activity : AppCompatActivity() {
 
