@@ -19,6 +19,9 @@ import java.util.*
 import com.squareup.picasso.Picasso
 
 import org.json.JSONObject
+import android.view.LayoutInflater
+
+
 
 class Main3Activity : AppCompatActivity() {
 
@@ -55,6 +58,7 @@ class Main3Activity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         //Setting up chat system.
         val message = findViewById<EditText>(R.id.compose_message)
         val messages = findViewById<ListView>(R.id.messages)
@@ -63,6 +67,10 @@ class Main3Activity : AppCompatActivity() {
         messages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
         messages.setAdapter(adapter)
 
+
+        //val layout = LayoutInflater.from(applicationContext)
+        //val view = layout.inflate(R.layout.rectangle_grey, null, false)
+        //messages.addView(view)
 
         //Send message on key press enter.
         message.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->

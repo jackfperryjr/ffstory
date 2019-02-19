@@ -85,21 +85,21 @@ class MainActivity : AppCompatActivity() {
                             }, 700)
                         }
                         else if (chance in 7..14) {
-                            toast("Fingers crossed!").setGravity(Gravity.CENTER, 0, 0)
+                            toast("Fingers crossed!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
                             val handler = Handler()
                             handler.postDelayed (Runnable {
                                 moogleApi()
                             }, 700)
                         }
                         else if (chance == 3) {
-                            toast("Oh. My. Gosh.").setGravity(Gravity.CENTER, 0, 0)
+                            toast("Oh. My. Gosh.").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
                             val handler = Handler()
                             handler.postDelayed (Runnable {
                                 moogleApi()
                             }, 700)
                         }
                         else {
-                            toast("You liked them!").setGravity(Gravity.CENTER, 0, 0)
+                            toast("You liked them!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
                             val handler = Handler()
                             handler.postDelayed(Runnable {
                                 moogleApi()
@@ -110,13 +110,13 @@ class MainActivity : AppCompatActivity() {
                         val chance= diceRoll()
 
                         if (chance >= 15) {
-                            toast("They didn't like you either!").setGravity(Gravity.CENTER, 0, 0)
+                            toast("They didn't like you either!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
                         }
                         else if (chance in 7..14) {
-                            toast("They really really liked you!").setGravity(Gravity.CENTER, 0, 0)
+                            toast("They really really liked you!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
                         }
                         else {
-                            toast("Psh. Let's move on.").setGravity(Gravity.CENTER, 0, 0)
+                            toast("Psh. Let's move on.").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
                         }
                         val handler = Handler()
                         handler.postDelayed(Runnable {
