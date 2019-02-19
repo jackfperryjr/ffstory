@@ -22,6 +22,7 @@ class LoginActivity : AppCompatActivity() {
         //Button to read information about character.
         loginButton.setOnClickListener { view ->
             view.context.startActivity(intent)
+            finish()
         }
     }
 
