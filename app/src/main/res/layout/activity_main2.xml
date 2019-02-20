@@ -89,7 +89,7 @@
         </RelativeLayout>
     </ScrollView>
     <Button
-            android:text="@string/back_button"
+            android:text="back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/back_button"
