@@ -9,4 +9,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">#ffffff</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#ffffff</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#ffffff</item>
+        <!-- Used for the background -->
+        <item name="android:background">#cc0000</item>
+    </style>
+
 </resources>

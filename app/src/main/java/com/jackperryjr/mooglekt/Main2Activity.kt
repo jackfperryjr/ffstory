@@ -1,6 +1,7 @@
 package com.jackperryjr.mooglekt
 
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
@@ -16,7 +17,9 @@ class Main2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        setTitle()
+        //setTitle()
+        //hiding the action bar
+        supportActionBar!!.hide()
         setCharacterData()
 
         val back = findViewById<Button>(R.id.back_button)
@@ -46,6 +49,7 @@ class Main2Activity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
+        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

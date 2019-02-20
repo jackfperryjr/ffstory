@@ -1,5 +1,6 @@
 package com.jackperryjr.mooglekt
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
@@ -14,6 +15,11 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
+import android.view.Gravity
+import android.graphics.drawable.ColorDrawable
+import android.view.inputmethod.InputMethodManager
+
+import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,7 +38,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        setTitle()
+        //setTitle()
+        //hiding the action bar
+        supportActionBar!!.hide()
 
         // initializing the views
         initViews()
@@ -43,13 +51,13 @@ class LoginActivity : AppCompatActivity() {
         val loginButton = findViewById<View>(R.id.appCompatButtonLogin)
         loginButton.setOnClickListener { view ->
             verifyFromSQLite()
-            finish()
         }
 
         val signupLink = findViewById<AppCompatTextView>(R.id.textViewLinkRegister)
         signupLink.setOnClickListener { view ->
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             view.context.startActivity(intent)
+            finish()
         }
     }
 
@@ -85,10 +93,16 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(activity, MainActivity::class.java)
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
+            toast("Welcome! Start swiping!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
             startActivity(intent)
+            finish()
         } else {
             // Snack Bar to show success message that record is wrong
-            Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
+            closeKeyboard()
+            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG)
+            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
+            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
+            snackBar.show()
         }
     }
     /**
@@ -99,7 +113,16 @@ class LoginActivity : AppCompatActivity() {
         textInputEditTextPassword.text = null
     }
 
+    private fun closeKeyboard() {
+        val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(
+            this.getCurrentFocus().getWindowToken(),
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
+    }
+
     private fun setTitle() { //Used to color the title.
+        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -107,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,0,0)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         setTitle(titleBar)
     }
 }

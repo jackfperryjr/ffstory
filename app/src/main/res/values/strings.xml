@@ -1,6 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Moogle Matchmaker</string>
-    <string name="app_title">A Final Fantasy App!</string>
+    <string name="app_title">Moogle Matchmaker</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -9,15 +9,13 @@
     <string name="prev_button">Prev</string>
     <string name="next_button">Next</string>
     <string name="reload">Reload</string>
-    <string name="back_button">back</string>
-    <string name="title_heading">A Final Fantasy App!</string>
+    <string name="back_button">back to swiping!</string>
     <string name="avatar">character avatar</string>
-    <string name="error_message_name">Enter Full Name</string>
-    <string name="error_message_email">Enter Valid Email</string>
-    <string name="error_message_age">Enter Age</string>
-    <string name="error_message_password">Enter Password</string>
-    <string name="success_message">Registration Successful</string>
-    <string name="error_email_exists">Email Already Exists</string>
-    <string name="error_password_match">Password Does Not Matches</string>
-    <string name="error_valid_email_password">Wrong Email or Password</string>
+    <string name="error_message_name">Enter your name</string>
+    <string name="error_message_email">Enter valid email</string>
+    <string name="error_message_password">Enter password</string>
+    <string name="success_message">You\'re signed up. Happy swiping!</string>
+    <string name="error_email_exists">Email already exists</string>
+    <string name="error_password_match">Passwords don\'t match</string>
+    <string name="error_valid_email_password">Wrong email or password</string>
 </resources>

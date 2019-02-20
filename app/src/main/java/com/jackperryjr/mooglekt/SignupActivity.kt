@@ -1,9 +1,12 @@
 package com.jackperryjr.mooglekt
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -15,8 +18,8 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
 import android.view.Gravity
-
-import org.jetbrains.anko.*
+import android.view.inputmethod.InputMethodManager
+import org.jetbrains.anko.toast
 
 class SignupActivity : AppCompatActivity() {
 
@@ -39,7 +42,9 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        setTitle()
+        //setTitle()
+        //hiding the action bar
+        supportActionBar!!.hide()
 
         // initializing the views
         initViews()
@@ -50,9 +55,6 @@ class SignupActivity : AppCompatActivity() {
         val signupButton = findViewById<View>(R.id.appCompatButtonRegister)
         signupButton.setOnClickListener { view ->
             postDataToSQLite()
-            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-            view.context.startActivity(intent)
-            toast("Welcome! Start swiping!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
         }
 
         val loginLink = findViewById<AppCompatTextView>(R.id.appCompatTextViewLoginLink)
@@ -113,14 +115,25 @@ class SignupActivity : AppCompatActivity() {
                 password = textInputEditTextPassword.text.toString().trim())
 
             databaseHelper.addUser(user)
-
-            // Snack Bar to show success message that record saved successfully
-            Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show()
+            // Snack Bar to show success message that record is wrong
+            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG)
+            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
+            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
+            snackBar.show()
             emptyInputEditText()
-
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                val intent = Intent(this@SignupActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 2000)
         } else {
-            // Snack Bar to show error message that record already exists
-            Snackbar.make(nestedScrollView, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG).show()
+            // Snack Bar to show success message that record is wrong
+            closeKeyboard()
+            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG)
+            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
+            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
+            snackBar.show()
         }
     }
     /**
@@ -133,7 +146,16 @@ class SignupActivity : AppCompatActivity() {
         textInputEditTextConfirmPassword.text = null
     }
 
+    private fun closeKeyboard() {
+        val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(
+            this.getCurrentFocus().getWindowToken(),
+            InputMethodManager.HIDE_NOT_ALWAYS
+        )
+    }
+
     private fun setTitle() { //Used to color the title.
+        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -13,7 +13,7 @@ class InputValidation(private val context: Context) {
         val value = textInputEditText.text.toString().trim()
         if (value.isEmpty()) {
             textInputLayout.error = message
-            hideKeyboardFrom(textInputEditText)
+            closeKeyboard(textInputEditText)
             return false
         } else {
             textInputLayout.isErrorEnabled = false
@@ -28,7 +28,7 @@ class InputValidation(private val context: Context) {
         val value = textInputEditText.text.toString().trim()
         if (value.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
             textInputLayout.error = message
-            hideKeyboardFrom(textInputEditText)
+            closeKeyboard(textInputEditText)
             return false
         } else {
             textInputLayout.isErrorEnabled = false
@@ -43,7 +43,7 @@ class InputValidation(private val context: Context) {
         val value2 = textInputEditText2.text.toString().trim()
         if (!value1.contentEquals(value2)) {
             textInputLayout.error = message
-            hideKeyboardFrom(textInputEditText2)
+            closeKeyboard(textInputEditText2)
             return false
         } else {
             textInputLayout.isErrorEnabled = false
@@ -53,8 +53,8 @@ class InputValidation(private val context: Context) {
     /**
      * method to Hide keyboard
      */
-    private fun hideKeyboardFrom(view: View) {
-        val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view.windowToken, WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+    private fun closeKeyboard(view: View) {
+        val inputManager = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view.windowToken, WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 }

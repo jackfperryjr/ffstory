@@ -8,6 +8,7 @@ import android.os.Handler
 import android.view.*
 import android.widget.*
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -30,7 +31,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setTitle()
+        //setTitle()
+        //hiding the action bar
+        supportActionBar!!.hide()
         //spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
         moogleApi()
 
@@ -129,6 +132,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTitle() { //Used to color the title.
+        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         val titleBar = SpannableString("Moogle Matchmaker")
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
