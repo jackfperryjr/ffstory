@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso
 import org.json.JSONObject
 
 class Main3Activity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
@@ -55,7 +54,6 @@ class Main3Activity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         //Setting up chat system.
         val message = findViewById<EditText>(R.id.compose_message)
         val messages = findViewById<ListView>(R.id.messages)
@@ -63,11 +61,6 @@ class Main3Activity : AppCompatActivity() {
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listMessages)
         messages.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
         messages.setAdapter(adapter)
-
-
-        //val layout = LayoutInflater.from(applicationContext)
-        //val view = layout.inflate(R.layout.rectangle_grey, null, false)
-        //messages.addView(view)
 
         //Send message on key press enter.
         message.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->

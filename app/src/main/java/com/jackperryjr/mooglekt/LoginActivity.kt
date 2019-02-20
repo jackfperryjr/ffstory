@@ -8,7 +8,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
-
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
@@ -21,17 +20,12 @@ class LoginActivity : AppCompatActivity() {
     private val activity = this@LoginActivity
 
     private lateinit var nestedScrollView: NestedScrollView
-
     private lateinit var textInputLayoutEmail: TextInputLayout
     private lateinit var textInputLayoutPassword: TextInputLayout
-
     private lateinit var textInputEditTextEmail: TextInputEditText
     private lateinit var textInputEditTextPassword: TextInputEditText
-
     private lateinit var appCompatButtonLogin: AppCompatButton
-
     private lateinit var textViewLinkRegister: AppCompatTextView
-
     private lateinit var inputValidation: InputValidation
     private lateinit var databaseHelper: DatabaseHelper
 
@@ -39,9 +33,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setTitle()
-
-        // hiding the action bar
-        //supportActionBar!!.hide()
 
         // initializing the views
         initViews()
@@ -51,8 +42,6 @@ class LoginActivity : AppCompatActivity() {
 
         val loginButton = findViewById<View>(R.id.appCompatButtonLogin)
         loginButton.setOnClickListener { view ->
-//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//            view.context.startActivity(intent)
             verifyFromSQLite()
             finish()
         }
@@ -65,33 +54,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-
         nestedScrollView = findViewById<View>(R.id.nestedScrollView) as NestedScrollView
-
         textInputLayoutEmail = findViewById<View>(R.id.textInputLayoutEmail) as TextInputLayout
         textInputLayoutPassword = findViewById<View>(R.id.textInputLayoutPassword) as TextInputLayout
-
         textInputEditTextEmail = findViewById<View>(R.id.textInputEditTextEmail) as TextInputEditText
         textInputEditTextPassword = findViewById<View>(R.id.textInputEditTextPassword) as TextInputEditText
-
         appCompatButtonLogin = findViewById<View>(R.id.appCompatButtonLogin) as AppCompatButton
-
         textViewLinkRegister = findViewById<View>(R.id.textViewLinkRegister) as AppCompatTextView
-
     }
 
     private fun initObjects() {
-
         databaseHelper = DatabaseHelper(activity)
         inputValidation = InputValidation(activity)
-
     }
-
     /**
      * This method is to validate the input text fields and verify login credentials from SQLite
      */
     private fun verifyFromSQLite() {
-
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
             return
         }
@@ -103,21 +82,15 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (databaseHelper.checkUser(textInputEditTextEmail.text.toString().trim { it <= ' ' }, textInputEditTextPassword.text.toString().trim { it <= ' ' })) {
-
-
             val intent = Intent(activity, MainActivity::class.java)
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
             startActivity(intent)
-
-
         } else {
-
             // Snack Bar to show success message that record is wrong
             Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG).show()
         }
     }
-
     /**
      * This method is to empty all input edit text
      */

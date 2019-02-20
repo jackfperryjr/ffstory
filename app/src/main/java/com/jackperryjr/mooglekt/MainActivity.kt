@@ -24,15 +24,14 @@ import org.jetbrains.anko.appcompat.v7.Appcompat
 import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity() {
-
-//    private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
+    //private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
     private var URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle()
-//        spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
+        //spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
         moogleApi()
 
         spinner!!.setVisibility(View.GONE) //Hiding the spinner that I'm not currently using.
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         doAsync {
             val apiURL = URL(URL_RANDOM_CHARACTER).readText()
             uiThread {
-
                 //Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
 
@@ -50,12 +48,10 @@ class MainActivity : AppCompatActivity() {
                 val characterImageUrl = character.optString("picture")
                 val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
                 characterName.text = character.optString("name")
-
                 Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
 
                 val intent = Intent(this@MainActivity, Main2Activity::class.java)
                 intent.putExtra("character", character.toString())
-
                 //Button to read information about character.
                 characterName.setOnClickListener { view ->
                     view.context.startActivity(intent)
@@ -64,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                 val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_avatar))
                 onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
                     override fun swipeRight() {
-
                         val chance= diceRoll()
 
                         if (chance >= 15) { //Just an easy random selection for now.
@@ -123,17 +118,14 @@ class MainActivity : AppCompatActivity() {
                             moogleApi()
                         }, 700)
                     }
-//                    override fun onClick() {
-//                        applicationContext.startActivity(intent)
-//                    }
                 })
             }
         }
 
-//        val handler = Handler() //Not currently using.
-//        handler.postDelayed(Runnable {
-//            spinner!!.setVisibility(View.GONE)
-//        }, 2000)
+        //val handler = Handler() //Not currently using.
+        //handler.postDelayed(Runnable {
+            //spinner!!.setVisibility(View.GONE)
+        //}, 2000)
     }
 
     private fun setTitle() { //Used to color the title.

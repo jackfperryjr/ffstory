@@ -17,18 +17,15 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         setTitle()
-
         setCharacterData()
 
         val back = findViewById<Button>(R.id.back_button)
-
         back.setOnClickListener(View.OnClickListener { view ->
-            this.finish()
+            finish()
         })
     }
 
     private fun setCharacterData() {
-
         val character = JSONObject(getIntent().getStringExtra("character"))
 
         val characterName = findViewById<TextView>(R.id.character_name)
@@ -46,26 +43,6 @@ class Main2Activity : AppCompatActivity() {
         characterJob.text = "Job Class: " + character.optString("job")
         characterOrigin.text = "Game Origin: " + character.optString("origin")
         characterDescription.text = character.optString("description")
-
-//        --- Something I'm trying to figure out ---
-//
-//        var name = character.optString("name")
-//        var age = character.optString("age")
-//        var race = character.optString("race")
-//        var gender = character.optString("gender")
-//        var job = character.optString("job")
-//        var origin = character.optString("origin")
-//        var description = character.optString("description")
-//
-//        findViewById<TextView>(R.id.character_name).getString(R.id.character_name) + name
-//        val characterAge = findViewById<TextView>(R.id.character_age)
-//        val characterRace = findViewById<TextView>(R.id.character_race)
-//        val characterGender = findViewById<TextView>(R.id.character_gender)
-//        val characterJob = findViewById<TextView>(R.id.character_job)
-//        val characterOrigin = findViewById<TextView>(R.id.character_origin)
-//        val characterDescription = findViewById<TextView>(R.id.character_description)
-//
-//        __________________________________________
     }
 
     private fun setTitle() { //Used to color the title.

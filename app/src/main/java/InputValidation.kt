@@ -8,23 +8,7 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 
-class InputValidation
-
-/**
- * constructor
- *
- * @param context
- */
-    (private val context: Context) {
-
-    /**
-     * method to check InputEditText filled .
-     *
-     * @param textInputEditText
-     * @param textInputLayout
-     * @param message
-     * @return
-     */
+class InputValidation(private val context: Context) {
     fun isInputEditTextFilled(textInputEditText: TextInputEditText, textInputLayout: TextInputLayout, message: String): Boolean {
         val value = textInputEditText.text.toString().trim()
         if (value.isEmpty()) {
@@ -34,18 +18,11 @@ class InputValidation
         } else {
             textInputLayout.isErrorEnabled = false
         }
-
         return true
     }
 
-
     /**
-     * method to check InputEditText has valid email .
-     *
-     * @param textInputEditText
-     * @param textInputLayout
-     * @param message
-     * @return
+     * method to check InputEditText has valid email
      */
     fun isInputEditTextEmail(textInputEditText: TextInputEditText, textInputLayout: TextInputLayout, message: String): Boolean {
         val value = textInputEditText.text.toString().trim()
@@ -58,15 +35,8 @@ class InputValidation
         }
         return true
     }
-
     /**
      * method to check both InputEditText value matches.
-     *
-     * @param textInputEditText1
-     * @param textInputEditText2
-     * @param textInputLayout
-     * @param message
-     * @return
      */
     fun isInputEditTextMatches(textInputEditText1: TextInputEditText, textInputEditText2: TextInputEditText, textInputLayout: TextInputLayout, message: String): Boolean {
         val value1 = textInputEditText1.text.toString().trim()
@@ -80,11 +50,8 @@ class InputValidation
         }
         return true
     }
-
     /**
      * method to Hide keyboard
-     *
-     * @param view
      */
     private fun hideKeyboardFrom(view: View) {
         val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
