@@ -95,10 +95,9 @@
             android:id="@+id/back_button"
             style="?android:attr/borderlessButtonStyle"
             android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/circle"
+            android:background="#ffffff"
             android:textColor="@color/snackbarBackground"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="144dp"
-            android:layout_marginRight="144dp"
-    />
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="160dp"
+            android:layout_marginRight="160dp"/>
 
 </android.support.constraint.ConstraintLayout>

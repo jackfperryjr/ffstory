@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -15,11 +16,8 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
-import android.view.Gravity
 import android.graphics.drawable.ColorDrawable
 import android.view.inputmethod.InputMethodManager
-
-import org.jetbrains.anko.toast
 
 class LoginActivity : AppCompatActivity() {
 
@@ -93,9 +91,16 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(activity, MainActivity::class.java)
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
-            toast("Welcome! Start swiping!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
-            startActivity(intent)
-            finish()
+            closeKeyboard()
+            var snackBar = Snackbar.make(nestedScrollView, "Welcome! Start swiping!", Snackbar.LENGTH_LONG)
+            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
+            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
+            snackBar.show()
+            var handler = Handler()
+            handler.postDelayed(Runnable {
+                startActivity(intent)
+                finish()
+            }, 700)
         } else {
             // Snack Bar to show success message that record is wrong
             closeKeyboard()

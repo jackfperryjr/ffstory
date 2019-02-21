@@ -17,9 +17,7 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
-import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
-import org.jetbrains.anko.toast
 
 class SignupActivity : AppCompatActivity() {
 
@@ -120,7 +118,7 @@ class SignupActivity : AppCompatActivity() {
             snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
             snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
             snackBar.show()
-            emptyInputEditText()
+            closeKeyboard()
             val handler = Handler()
             handler.postDelayed(Runnable {
                 val intent = Intent(this@SignupActivity, MainActivity::class.java)
