@@ -14,21 +14,22 @@ import android.widget.*
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 
-import kotlinx.android.synthetic.main.activity_main3.messages
+import kotlinx.android.synthetic.main.activity_chat.messages
 
 import java.util.*
 
 import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 import org.json.JSONObject
 
-class Main3Activity : AppCompatActivity() {
+class ChatActivity : AppCompatActivity() {
 
     private lateinit var listView: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main3)
+        setContentView(R.layout.activity_chat)
         //setTitle()
         //hiding the action bar
         supportActionBar!!.hide()
@@ -38,15 +39,14 @@ class Main3Activity : AppCompatActivity() {
         val character = JSONObject(getIntent().getStringExtra("character"))
         val characterName = findViewById<TextView>(R.id.character_name)
         characterName.text = character.optString("name")
-        val characterMatch = character.optString("name").split(" ")
 
         //Setting avatar.
         val characterImageUrl = character.optString("picture")
         val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
-        Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
+        Picasso.with(applicationContext).load(characterImageUrl).transform(CropCircleTransformation()).into(characterAvatar)
 
         //Setting intent to go to info screen.
-        val intent = Intent(this@Main3Activity, Main2Activity::class.java)
+        val intent = Intent(this@ChatActivity, BioActivity::class.java)
         intent.putExtra("character", character.toString())
 
         //Button to read information about character.

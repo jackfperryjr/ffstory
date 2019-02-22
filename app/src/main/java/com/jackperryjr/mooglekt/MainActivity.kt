@@ -23,6 +23,7 @@ import org.json.JSONObject
 import org.jetbrains.anko.appcompat.v7.Appcompat
 
 import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 class MainActivity : AppCompatActivity() {
     //private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         //spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
         moogleApi()
 
-        spinner!!.setVisibility(View.GONE) //Hiding the spinner that I'm not currently using.
+        //spinner!!.setVisibility(View.GONE) //Hiding the spinner that I'm not currently using.
     }
 
     private fun moogleApi() {
@@ -51,9 +52,11 @@ class MainActivity : AppCompatActivity() {
                 val characterImageUrl = character.optString("picture")
                 val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
                 characterName.text = character.optString("name")
-                Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
+                //Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
+                Picasso.with(applicationContext).load(characterImageUrl).transform(CropCircleTransformation()).into(characterAvatar)
 
-                val intent = Intent(this@MainActivity, Main2Activity::class.java)
+
+                val intent = Intent(this@MainActivity, BioActivity::class.java)
                 intent.putExtra("character", character.toString())
                 //Button to read information about character.
                 characterName.setOnClickListener { view ->
@@ -71,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                                 alert(Appcompat, "You liked them! They like you! Send a message?"){
                                     negativeButton("Nope!") { moogleApi() }
                                     positiveButton("Yes!") {
-                                        val intent = Intent(this@MainActivity, Main3Activity::class.java)
+                                        val intent = Intent(this@MainActivity, ChatActivity::class.java)
                                         intent.putExtra("character", character.toString())
                                         startActivity(intent)
                                         finish()
@@ -82,40 +85,16 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }, 700)
                         }
-                        else if (chance in 7..14) {
-                            toast("Fingers crossed!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
-                            val handler = Handler()
-                            handler.postDelayed (Runnable {
-                                moogleApi()
-                            }, 700)
-                        }
-                        else if (chance == 3) {
-                            toast("Oh. My. Gosh.").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
-                            val handler = Handler()
-                            handler.postDelayed (Runnable {
-                                moogleApi()
-                            }, 700)
-                        }
                         else {
-                            toast("You liked them!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
+                            toast("You liked them!").setGravity(Gravity.TOP, 0, 0)
                             val handler = Handler()
-                            handler.postDelayed(Runnable {
+                            handler.postDelayed (Runnable {
                                 moogleApi()
                             }, 700)
                         }
                     }
                     override fun swipeLeft() {
-                        val chance= diceRoll()
-
-                        if (chance >= 15) {
-                            toast("They didn't like you either!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
-                        }
-                        else if (chance in 7..14) {
-                            toast("They really really liked you!").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
-                        }
-                        else {
-                            toast("Psh. Let's move on.").setGravity(Gravity.TOP and Gravity.CENTER_VERTICAL, 0, 0)
-                        }
+                        toast("You didn't like them?").setGravity(Gravity.TOP, 0, 0)
                         val handler = Handler()
                         handler.postDelayed(Runnable {
                             moogleApi()

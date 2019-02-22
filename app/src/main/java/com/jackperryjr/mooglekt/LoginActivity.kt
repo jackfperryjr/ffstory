@@ -17,7 +17,10 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
 import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
+
+import org.jetbrains.anko.*
 
 class LoginActivity : AppCompatActivity() {
 
@@ -92,10 +95,11 @@ class LoginActivity : AppCompatActivity() {
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
             closeKeyboard()
-            var snackBar = Snackbar.make(nestedScrollView, "Welcome! Start swiping!", Snackbar.LENGTH_LONG)
-            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
-            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
-            snackBar.show()
+//            var snackBar = Snackbar.make(nestedScrollView, "Welcome! Start swiping!", Snackbar.LENGTH_LONG)
+//            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
+//            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
+//            snackBar.show()
+            toast("Let's start swiping!").setGravity(Gravity.TOP, 0, 0)
             var handler = Handler()
             handler.postDelayed(Runnable {
                 startActivity(intent)
@@ -104,10 +108,11 @@ class LoginActivity : AppCompatActivity() {
         } else {
             // Snack Bar to show success message that record is wrong
             closeKeyboard()
-            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG)
-            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
-            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
-            snackBar.show()
+//            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG)
+//            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
+//            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
+//            snackBar.show()
+            toast(R.string.error_valid_email_password).setGravity(Gravity.TOP, 0, 0)
         }
     }
     /**

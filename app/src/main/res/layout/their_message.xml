@@ -36,4 +36,12 @@
             android:elevation="2dp"
             android:textSize="18dp"
             android:text="Placeholder Message"/>
+    <TextView
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sent 00:00 PM"
+            android:layout_below="@+id/message_body"
+            android:textColor="#696969"
+            android:textSize="9sp" android:layout_marginTop="0dp"/>
 </RelativeLayout>

@@ -12,11 +12,11 @@ import android.widget.*
 
 import org.json.JSONObject
 
-class Main2Activity : AppCompatActivity() {
+class BioActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
+        setContentView(R.layout.activity_bio)
         //setTitle()
         //hiding the action bar
         supportActionBar!!.hide()
