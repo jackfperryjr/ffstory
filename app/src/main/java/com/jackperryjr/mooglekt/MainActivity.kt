@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
-import android.view.*
 import android.widget.*
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,8 +12,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
-
-import kotlinx.android.synthetic.main.activity_main.*
 
 import java.net.*
 

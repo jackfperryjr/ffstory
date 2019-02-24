@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat
 
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
-import kotlinx.android.synthetic.main.user_message.*
 
 import org.json.JSONObject
 
