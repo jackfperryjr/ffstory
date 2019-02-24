@@ -17,9 +17,11 @@ import android.graphics.drawable.ColorDrawable
 import kotlinx.android.synthetic.main.activity_chat.messages
 
 import java.util.*
+import java.text.SimpleDateFormat
 
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
+import kotlinx.android.synthetic.main.user_message.*
 
 import org.json.JSONObject
 
@@ -93,7 +95,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage(listMessages : ArrayList<Message>, messages : ListView, message : EditText) {
-        var userMessage = Message(message.text.toString(), isUser = true)
+        var date = Date()
+        val formatter = SimpleDateFormat( "HH:mma")
+        var timeStamp = "Sent " + formatter.format(date).toString()
+        var userMessage = Message(message.text.toString(), isUser = true, timeStamp = timeStamp)
         listMessages.add(userMessage)
         messages.invalidateViews()
         message.text.clear()
@@ -123,11 +128,14 @@ class ChatActivity : AppCompatActivity() {
         responseMessages.add("Final Fantasy is so cool.")
         responseMessages.add("This developer is so cool.")
         handler.postDelayed(Runnable {
+            var date = Date()
+            val formatter = SimpleDateFormat( "HH:mma")
+            var timeStamp = "Sent " + formatter.format(date).toString()
             if (listMessages.size <= 1) {
-                var theirMessage = Message(responseMessages[0], isUser = false)
+                var theirMessage = Message(responseMessages[0], isUser = false, timeStamp = timeStamp)
                 listMessages.add(theirMessage)
             } else {
-                var theirMessage = Message(responseMessages[responseIndex], isUser = false)
+                var theirMessage = Message(responseMessages[responseIndex], isUser = false, timeStamp = timeStamp)
                 listMessages.add(theirMessage)
             }
             messages.invalidateViews()
@@ -139,7 +147,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun responseDiceRoll(): Long {
-        return (2000..9000).random().toLong()
+        return (2000..90000).random().toLong()
     }
 
     private fun setTitle() { //Used to color the title.

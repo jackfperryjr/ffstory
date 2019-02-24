@@ -7,9 +7,6 @@ import android.widget.BaseAdapter
 import android.view.View
 import android.content.Context
 
-import java.util.Date
-import java.text.SimpleDateFormat
-
 class MessageAdapter(internal var context: Context, private val messages: ArrayList<Message>) : BaseAdapter() {
 
     private val inflater: LayoutInflater
@@ -37,23 +34,20 @@ class MessageAdapter(internal var context: Context, private val messages: ArrayL
         val holder = MessageViewHolder()
         val message = messages[position]
 
-        var date = Date()
-        val formatter = SimpleDateFormat( "HH:mma")
-
         if (message.isUser) { // this message was sent by us so let's create a basic chat bubble on the right
             convertView = inflater.inflate(R.layout.user_message, null)
             holder.messageBody = convertView.findViewById(R.id.message_body)
             holder.timeStamp = convertView.findViewById(R.id.timestamp)
             convertView.setTag(holder)
             holder.messageBody!!.text = message.text
-            holder.timeStamp!!.text = "Sent " + formatter.format(date).toString()
+            holder.timeStamp!!.text = message.timeStamp //"Sent " + formatter.format(date).toString()
         } else { // this message was sent by someone else so let's create an advanced chat bubble on the left
             convertView = inflater.inflate(R.layout.their_message, null)
             holder.messageBody = convertView.findViewById(R.id.message_body)
             holder.timeStamp = convertView.findViewById(R.id.timestamp)
             convertView.setTag(holder)
             holder.messageBody!!.text = message.text
-            holder.timeStamp!!.text = "Sent " + formatter.format(date).toString()
+            holder.timeStamp!!.text = message.timeStamp //"Sent " + formatter.format(date).toString()
         }
 
         return convertView
