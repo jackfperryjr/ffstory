@@ -7,10 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.*
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 
 import java.net.*
@@ -20,55 +16,54 @@ import org.json.JSONObject
 import org.jetbrains.anko.appcompat.v7.Appcompat
 
 import com.squareup.picasso.Picasso
+
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 class MainActivity : AppCompatActivity() {
-    //private var spinner: ProgressBar? = null //Spinner when pulling in a character; not currently in use.
+    //private var spinner: ProgressBar? = null // Spinner when pulling in a character; not currently in use.
     private var URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //setTitle()
-        //hiding the action bar
+        // Hiding the action bar.
         supportActionBar!!.hide()
-        //spinner = findViewById<ProgressBar>(R.id.spinner) //Not currently using.
+        //spinner = findViewById<ProgressBar>(R.id.spinner) // Not currently using.
         moogleApi()
-
-        //spinner!!.setVisibility(View.GONE) //Hiding the spinner that I'm not currently using.
+        //spinner!!.setVisibility(View.GONE) // Hiding the spinner that I'm not currently using.
     }
 
     private fun moogleApi() {
         doAsync {
             val apiURL = URL(URL_RANDOM_CHARACTER).readText()
             uiThread {
-                //Convert JSON string back to JSON object.
+                // Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
-
+                //
                 val characterName = findViewById<TextView>(R.id.character_name)
                 val characterImageUrl = character.optString("picture")
                 val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
                 characterName.text = character.optString("name")
-                //Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar)
+                //Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar) // Non-circular picture.
                 Picasso.with(applicationContext).load(characterImageUrl).transform(CropCircleTransformation()).into(characterAvatar)
-
 
                 val intent = Intent(this@MainActivity, BioActivity::class.java)
                 intent.putExtra("character", character.toString())
-                //Button to read information about character.
+                // Button to read information about character.
                 characterName.setOnClickListener { view ->
                     view.context.startActivity(intent)
                 }
-
+                // Swipe listener to swipe right or left on characters.
                 val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_avatar))
                 onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
                     override fun swipeRight() {
                         val chance= diceRoll()
-
-                        if (chance >= 15) { //Just an easy random selection for now.
+                        // If you randomly match with the character!
+                        if (chance >= 15) { // Just an easy random selection for now.
                             val handler = Handler()
                             handler.postDelayed(Runnable {
-                                alert(Appcompat, "You liked them! They like you! Send a message?"){
+                                alert(Appcompat) {
+                                    title = "You Matched!"
                                     negativeButton("Nope!") { moogleApi() }
                                     positiveButton("Yes!") {
                                         val intent = Intent(this@MainActivity, ChatActivity::class.java)
@@ -76,22 +71,48 @@ class MainActivity : AppCompatActivity() {
                                         startActivity(intent)
                                         finish()
                                     }
-                                }.show().apply {
+                                    customView {
+                                        linearLayout {
+                                            textView("Would you like to send a message?")
+                                            padding = dip(20)
+                                            weightSum = 1.0f
+                                        }
+                                    }
+                                }.show()
+                                    .apply {
                                     getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
                                     getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
                                 }
                             }, 700)
                         }
+                        // If you don't randomly match with the character.
                         else {
-                            toast("You liked them!").setGravity(Gravity.TOP, 0, 0)
+                            //toast("You liked them!").setGravity(Gravity.TOP, 0, 0) // anko toast.
+                            val toast = Toast.makeText(this@MainActivity, "You liked them!",Toast.LENGTH_SHORT)
+                            val view = toast.view
+                            view.setBackgroundColor(Color.WHITE)
+                            val text = view.findViewById(android.R.id.message) as TextView
+                            text.setTextColor(Color.BLACK)
+                            text.textSize = (24F)
+                            toast.setGravity(Gravity.TOP, 0, 0)
+                            toast.show()
                             val handler = Handler()
                             handler.postDelayed (Runnable {
                                 moogleApi()
                             }, 700)
                         }
                     }
+                    // If you don't want to match with the character.
                     override fun swipeLeft() {
-                        toast("You didn't like them?").setGravity(Gravity.TOP, 0, 0)
+                        //toast("You didn't like them?").setGravity(Gravity.TOP, 0, 0) // anko toast.
+                        val toast = Toast.makeText(this@MainActivity, "You didn't like them?",Toast.LENGTH_SHORT)
+                        val view = toast.view
+                        view.setBackgroundColor(Color.WHITE)
+                        val text = view.findViewById(android.R.id.message) as TextView
+                        text.setTextColor(Color.BLACK)
+                        text.textSize = (24F)
+                        toast.setGravity(Gravity.TOP, 0, 0)
+                        toast.show()
                         val handler = Handler()
                         handler.postDelayed(Runnable {
                             moogleApi()
@@ -100,26 +121,12 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         }
-
         //val handler = Handler() //Not currently using.
         //handler.postDelayed(Runnable {
             //spinner!!.setVisibility(View.GONE)
         //}, 2000)
     }
-
-    private fun setTitle() { //Used to color the title.
-        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
-        val titleBar = SpannableString("Moogle Matchmaker")
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        setTitle(titleBar)
-    }
-
+    // Random dice roll to determine if you match or not.
     private fun diceRoll(): Int {
         return (0..20).random()
     }

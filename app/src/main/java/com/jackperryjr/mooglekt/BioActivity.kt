@@ -1,12 +1,7 @@
 package com.jackperryjr.mooglekt
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.*
 
@@ -17,8 +12,7 @@ class BioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bio)
-        //setTitle()
-        //hiding the action bar
+        // Hiding the action bar.
         supportActionBar!!.hide()
         setCharacterData()
 
@@ -27,7 +21,7 @@ class BioActivity : AppCompatActivity() {
             finish()
         })
     }
-
+    // Setting the character data to the screen, this needs work.
     private fun setCharacterData() {
         val character = JSONObject(getIntent().getStringExtra("character"))
 
@@ -46,18 +40,5 @@ class BioActivity : AppCompatActivity() {
         characterJob.text = "Job Class: " + character.optString("job")
         characterOrigin.text = "Game Origin: " + character.optString("origin")
         characterDescription.text = character.optString("description")
-    }
-
-    private fun setTitle() { //Used to color the title.
-        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
-        val titleBar = SpannableString("Moogle Matchmaker")
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        setTitle(titleBar)
     }
 }

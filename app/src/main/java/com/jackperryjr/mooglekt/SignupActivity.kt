@@ -11,7 +11,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.widget.NestedScrollView
@@ -19,7 +18,10 @@ import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
 import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
-import org.jetbrains.anko.toast
+import android.widget.TextView
+import android.widget.Toast
+
+import org.jetbrains.anko.*
 
 class SignupActivity : AppCompatActivity() {
 
@@ -42,14 +44,10 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
-        //setTitle()
-        //hiding the action bar
+        // Hiding the action bar.
         supportActionBar!!.hide()
 
-        // initializing the views
         initViews()
-
-        // initializing the objects
         initObjects()
 
         val signupButton = findViewById<View>(R.id.appCompatButtonRegister)
@@ -64,9 +62,7 @@ class SignupActivity : AppCompatActivity() {
             finish()
         }
     }
-    /**
-     * This method is to initialize views
-     */
+    // Initialize views.
     private fun initViews() {
         nestedScrollView = findViewById<View>(R.id.nestedScrollView) as NestedScrollView
         textInputLayoutName = findViewById<View>(R.id.textInputLayoutName) as TextInputLayout
@@ -80,16 +76,12 @@ class SignupActivity : AppCompatActivity() {
         appCompatButtonRegister = findViewById<View>(R.id.appCompatButtonRegister) as AppCompatButton
         appCompatTextViewLoginLink = findViewById<View>(R.id.appCompatTextViewLoginLink) as AppCompatTextView
     }
-    /**
-     * This method is to initialize objects to be used
-     */
+    // Initialize objects.
     private fun initObjects() {
         inputValidation = InputValidation(activity)
         databaseHelper = DatabaseHelper(activity)
     }
-    /**
-     * This method is to validate the input text fields and post data to SQLite
-     */
+    // Validate input text and verify login credentials.
     private fun postDataToSQLite() {
         if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
             return
@@ -115,12 +107,15 @@ class SignupActivity : AppCompatActivity() {
                 password = textInputEditTextPassword.text.toString().trim())
 
             databaseHelper.addUser(user)
-            // Snack Bar to show success message that record is wrong
-//            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG)
-//            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
-//            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
-//            snackBar.show()
-            toast(R.string.success_message).setGravity(Gravity.TOP, 0, 0)
+            //toast(R.string.success_message).setGravity(Gravity.TOP, 0, 0) // anko toast.
+            val toast = Toast.makeText(this@SignupActivity, R.string.success_message, Toast.LENGTH_SHORT)
+            val view = toast.view
+            view.setBackgroundColor(Color.WHITE)
+            val text = view.findViewById(android.R.id.message) as TextView
+            text.setTextColor(Color.BLACK)
+            text.textSize = (24F)
+            toast.setGravity(Gravity.TOP, 0, 0)
+            toast.show()
             closeKeyboard()
             val handler = Handler()
             handler.postDelayed(Runnable {
@@ -129,43 +124,31 @@ class SignupActivity : AppCompatActivity() {
                 finish()
             }, 2000)
         } else {
-            // Snack Bar to show success message that record is wrong
             closeKeyboard()
-//            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.error_email_exists), Snackbar.LENGTH_LONG)
-//            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
-//            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
-//            snackBar.show()
-            toast(R.string.error_email_exists).setGravity(Gravity.TOP, 0, 0)
+            //toast(R.string.error_email_exists).setGravity(Gravity.TOP, 0, 0) // anko toast.
+            val toast = Toast.makeText(this@SignupActivity, R.string.error_email_exists, Toast.LENGTH_SHORT)
+            val view = toast.view
+            view.setBackgroundColor(Color.WHITE)
+            val text = view.findViewById(android.R.id.message) as TextView
+            text.setTextColor(Color.BLACK)
+            text.textSize = (24F)
+            toast.setGravity(Gravity.TOP, 0, 0)
+            toast.show()
         }
     }
-    /**
-     * This method is to empty all input edit text
-     */
+    // Empty input text.
     private fun emptyInputEditText() {
         textInputEditTextName.text = null
         textInputEditTextEmail.text = null
         textInputEditTextPassword.text = null
         textInputEditTextConfirmPassword.text = null
     }
-
+    // Close the keyboard.
     private fun closeKeyboard() {
         val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(
             this.getCurrentFocus().getWindowToken(),
             InputMethodManager.HIDE_NOT_ALWAYS
         )
-    }
-
-    private fun setTitle() { //Used to color the title.
-        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
-        val titleBar = SpannableString("Moogle Matchmaker")
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,255,255)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        setTitle(titleBar)
     }
 }

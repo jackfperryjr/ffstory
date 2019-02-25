@@ -66,18 +66,14 @@ internal class OnSwipeTouchListener(internal var context: Context, mainView: Vie
     }
 
     fun onSwipeRight() {
-        //Toast.makeText(context, "Right", Toast.LENGTH_SHORT).show()
         this.onSwipe?.swipeRight()
     }
 
     fun onSwipeLeft() {
-        //Toast.makeText(context, "Left", Toast.LENGTH_SHORT).show()
         this.onSwipe?.swipeLeft()
     }
 
-    fun onClick() {
-        this.onClick()
-    }
+    fun onClick() {}
 
     fun onSwipeTop() {}
 

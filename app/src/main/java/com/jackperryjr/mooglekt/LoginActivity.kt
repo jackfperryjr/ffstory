@@ -6,19 +6,16 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.View
-import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatTextView
-import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.Toast
 
 import org.jetbrains.anko.*
 
@@ -39,14 +36,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        //setTitle()
-        //hiding the action bar
+        // Hiding the action bar.
         supportActionBar!!.hide()
 
-        // initializing the views
         initViews()
-
-        // initializing the objects
         initObjects()
 
         val loginButton = findViewById<View>(R.id.appCompatButtonLogin)
@@ -76,9 +69,7 @@ class LoginActivity : AppCompatActivity() {
         databaseHelper = DatabaseHelper(activity)
         inputValidation = InputValidation(activity)
     }
-    /**
-     * This method is to validate the input text fields and verify login credentials from SQLite
-     */
+    // Validate input text and verify login credentials.
     private fun verifyFromSQLite() {
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
             return
@@ -95,52 +86,44 @@ class LoginActivity : AppCompatActivity() {
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
             closeKeyboard()
-//            var snackBar = Snackbar.make(nestedScrollView, "Welcome! Start swiping!", Snackbar.LENGTH_LONG)
-//            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
-//            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
-//            snackBar.show()
-            toast("Let's start swiping!").setGravity(Gravity.TOP, 0, 0)
+            //toast("Let's start swiping!").setGravity(Gravity.TOP, 0, 0) // anko toast.
+            val toast = Toast.makeText(this@LoginActivity, "Let's start swiping!", Toast.LENGTH_SHORT)
+            val view = toast.view
+            view.setBackgroundColor(Color.WHITE)
+            val text = view.findViewById(android.R.id.message) as TextView
+            text.setTextColor(Color.BLACK)
+            text.textSize = (24F)
+            toast.setGravity(Gravity.TOP, 0, 0)
+            toast.show()
             var handler = Handler()
             handler.postDelayed(Runnable {
                 startActivity(intent)
                 finish()
             }, 700)
         } else {
-            // Snack Bar to show success message that record is wrong
             closeKeyboard()
-//            var snackBar = Snackbar.make(nestedScrollView, getString(R.string.error_valid_email_password), Snackbar.LENGTH_LONG)
-//            snackBar.setActionTextColor(getResources().getColor(R.color.colorText))
-//            snackBar.view.setBackgroundColor(getResources().getColor(R.color.snackbarBackground))
-//            snackBar.show()
-            toast(R.string.error_valid_email_password).setGravity(Gravity.TOP, 0, 0)
+            //toast(R.string.error_valid_email_password).setGravity(Gravity.TOP, 0, 0) // anko toast.
+            val toast = Toast.makeText(this@LoginActivity, R.string.error_valid_email_password, Toast.LENGTH_SHORT)
+            val view = toast.view
+            view.setBackgroundColor(Color.WHITE)
+            val text = view.findViewById(android.R.id.message) as TextView
+            text.setTextColor(Color.BLACK)
+            text.textSize = (24F)
+            toast.setGravity(Gravity.TOP, 0, 0)
+            toast.show()
         }
     }
-    /**
-     * This method is to empty all input edit text
-     */
+    // Empty input text.
     private fun emptyInputEditText() {
         textInputEditTextEmail.text = null
         textInputEditTextPassword.text = null
     }
-
+    // Close the keyboard.
     private fun closeKeyboard() {
         val inputManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(
             this.getCurrentFocus().getWindowToken(),
             InputMethodManager.HIDE_NOT_ALWAYS
         )
-    }
-
-    private fun setTitle() { //Used to color the title.
-        getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
-        val titleBar = SpannableString("Moogle Matchmaker")
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 0, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 1, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(255,187,51)), 2, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(66,133,244)), 3, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,126,51)), 4, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(204,0,0)), 5, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        titleBar.setSpan(ForegroundColorSpan(Color.rgb(0,0,0)), 6, titleBar.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        setTitle(titleBar)
     }
 }
