@@ -44,8 +44,8 @@ class MainActivity : AppCompatActivity() {
                 val characterImageUrl = character.optString("picture")
                 val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
                 characterName.text = character.optString("name")
-                //Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar) // Non-circular picture.
-                Picasso.with(applicationContext).load(characterImageUrl).transform(CropCircleTransformation()).into(characterAvatar)
+                Picasso.with(applicationContext).load(characterImageUrl).into(characterAvatar) // Non-circular picture.
+                //Picasso.with(applicationContext).load(characterImageUrl).transform(CropCircleTransformation()).into(characterAvatar) // Circle picture.
 
                 val intent = Intent(this@MainActivity, BioActivity::class.java)
                 intent.putExtra("character", character.toString())

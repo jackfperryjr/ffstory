@@ -96,7 +96,7 @@
             style="?android:attr/borderlessButtonStyle"
             android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"
             android:background="#ffffff"
-            android:textColor="@color/snackbarBackground"
+            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="160dp"
             android:layout_marginRight="160dp"/>
 
