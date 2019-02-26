@@ -81,52 +81,57 @@ class ChatActivity : AppCompatActivity() {
     // Send that message.
     private fun sendMessage(listMessages : ArrayList<Message>, messages : ListView, message : EditText) {
         var date = Date()
-        val formatter = SimpleDateFormat( "HH:mma")
+        val formatter = SimpleDateFormat( "HH:mm a")
         var timeStamp = "Sent " + formatter.format(date).toString()
         var userMessage = Message(message.text.toString(), isUser = true, timeStamp = timeStamp)
-        listMessages.add(userMessage)
-        messages.invalidateViews()
-        message.text.clear()
-        closeKeyboard()
-        val handler = Handler()
-        val responseTime = responseDiceRoll()
-        val responseIndex = diceRoll()
-        // Temporary generic array of responses.
-        val responseMessages = java.util.ArrayList<String>()
-        responseMessages.add("Hey there!")
-        responseMessages.add("How's the weather?")
-        responseMessages.add("What's your favorite game?")
-        responseMessages.add("Lovely.")
-        responseMessages.add("Yeah!")
-        responseMessages.add("Nope.")
-        responseMessages.add("That's so nice.")
-        responseMessages.add(";-)")
-        responseMessages.add("Haha!")
-        responseMessages.add("I don't think so.")
-        responseMessages.add("Maybe.")
-        responseMessages.add("I would never!")
-        responseMessages.add("Maybe.")
-        responseMessages.add("Yeah.")
-        responseMessages.add("What?!")
-        responseMessages.add("You're so funny.")
-        responseMessages.add("Word.")
-        responseMessages.add("I love what I do.")
-        responseMessages.add("Final Fantasy is so cool.")
-        responseMessages.add("This developer is so cool.")
-        // Used to respond to your message, for now.
-        handler.postDelayed(Runnable {
-            var date = Date()
-            val formatter = SimpleDateFormat( "HH:mma")
-            var timeStamp = "Sent " + formatter.format(date).toString()
-            if (listMessages.size <= 1) {
-                var theirMessage = Message(responseMessages[0], isUser = false, timeStamp = timeStamp)
-                listMessages.add(theirMessage)
-            } else {
-                var theirMessage = Message(responseMessages[responseIndex], isUser = false, timeStamp = timeStamp)
-                listMessages.add(theirMessage)
-            }
+        if (userMessage.text.trim().equals("")){
+            closeKeyboard()
+        }
+        else {
+            listMessages.add(userMessage)
             messages.invalidateViews()
-        }, responseTime)
+            message.text.clear()
+            closeKeyboard()
+            val handler = Handler()
+            val responseTime = responseDiceRoll()
+            val responseIndex = diceRoll()
+            // Temporary generic array of responses.
+            val responseMessages = java.util.ArrayList<String>()
+            responseMessages.add("Hey there!")
+            responseMessages.add("How's the weather?")
+            responseMessages.add("What's your favorite game?")
+            responseMessages.add("Lovely.")
+            responseMessages.add("Yeah!")
+            responseMessages.add("Nope.")
+            responseMessages.add("That's so nice.")
+            responseMessages.add(";-)")
+            responseMessages.add("Haha!")
+            responseMessages.add("I don't think so.")
+            responseMessages.add("Maybe.")
+            responseMessages.add("I would never!")
+            responseMessages.add("Maybe.")
+            responseMessages.add("Yeah.")
+            responseMessages.add("What?!")
+            responseMessages.add("You're so funny.")
+            responseMessages.add("Word.")
+            responseMessages.add("I love what I do.")
+            responseMessages.add("Final Fantasy is so cool.")
+            responseMessages.add("This developer is so cool.")
+            // Used to respond to your message, for now.
+            handler.postDelayed(Runnable {
+                var date = Date()
+                val formatter = SimpleDateFormat("HH:mma")
+                var timeStamp = "Sent " + formatter.format(date).toString()
+                if (listMessages.size <= 1) {
+                    var theirMessage = Message(responseMessages[0], isUser = false, timeStamp = timeStamp)
+                    listMessages.add(theirMessage)
+                } else {
+                    var theirMessage = Message(responseMessages[responseIndex], isUser = false, timeStamp = timeStamp)
+                    listMessages.add(theirMessage)
+                }
+                messages.invalidateViews()
+            }, responseTime)
+        }
     }
     // Random dice roll to determine which generic response to send.
     private fun diceRoll(): Int {

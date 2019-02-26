@@ -107,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
             val view = toast.view
             view.setBackgroundColor(Color.WHITE)
             val text = view.findViewById(android.R.id.message) as TextView
-            text.setTextColor(Color.BLACK)
+            text.setTextColor(Color.RED)
             text.textSize = (24F)
             toast.setGravity(Gravity.TOP, 0, 0)
             toast.show()
