@@ -65,7 +65,7 @@ class ChatActivity : AppCompatActivity() {
             false
         })
         // Send message on button click.
-        val send = findViewById<Button>(R.id.send_button)
+        val send = findViewById<ImageButton>(R.id.send_button)
         send.setOnClickListener {
             sendMessage(listMessages, messages, message)
         }
@@ -97,14 +97,14 @@ class ChatActivity : AppCompatActivity() {
             val responseIndex = diceRoll()
             // Temporary generic array of responses.
             val responseMessages = java.util.ArrayList<String>()
-            responseMessages.add("Hey there!")
+            responseMessages.add("Hey there! :)".replace(":)", "\uD83D\uDE01"))
             responseMessages.add("How's the weather?")
             responseMessages.add("What's your favorite game?")
             responseMessages.add("Lovely.")
             responseMessages.add("Yeah!")
             responseMessages.add("Nope.")
             responseMessages.add("That's so nice.")
-            responseMessages.add(";-)")
+            responseMessages.add(";-)".replace(":)", "\uD83D\uDE09"))
             responseMessages.add("Haha!")
             responseMessages.add("I don't think so.")
             responseMessages.add("Maybe.")
@@ -120,7 +120,7 @@ class ChatActivity : AppCompatActivity() {
             // Used to respond to your message, for now.
             handler.postDelayed(Runnable {
                 var date = Date()
-                val formatter = SimpleDateFormat("HH:mma")
+                val formatter = SimpleDateFormat("HH:mm a")
                 var timeStamp = "Sent " + formatter.format(date).toString()
                 if (listMessages.size <= 1) {
                     var theirMessage = Message(responseMessages[0], isUser = false, timeStamp = timeStamp)
