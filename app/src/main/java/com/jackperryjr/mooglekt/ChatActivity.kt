@@ -105,7 +105,7 @@ class ChatActivity : AppCompatActivity() {
             responseMessages.add("Nope.")
             responseMessages.add("That's so nice.")
             responseMessages.add("\uD83D\uDE09")
-            responseMessages.add("Haha!")
+            responseMessages.add("\uD83D\uDE43")
             responseMessages.add("I don't think so.")
             responseMessages.add("Maybe.")
             responseMessages.add("I would never!")
@@ -116,7 +116,7 @@ class ChatActivity : AppCompatActivity() {
             responseMessages.add("Word.")
             responseMessages.add("I love what I do.")
             responseMessages.add("Final Fantasy is so cool.")
-            responseMessages.add("This developer is so cool.")
+            responseMessages.add("This developer is so cool. \uD83D\uDE0E \uD83D\uDE0D")
             // Used to respond to your message, for now.
             handler.postDelayed(Runnable {
                 var date = Date()

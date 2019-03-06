@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/message_body" android:textColor="#000000"
             android:layout_alignParentRight="true"
-            android:background="@drawable/rectangle_grey"
+            android:background="@drawable/rectangle_green"
             android:paddingVertical="12dp"
             android:paddingHorizontal="16dp"
             android:elevation="2dp"
