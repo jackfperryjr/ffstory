@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 // Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
                 //
+                val characterInfo = findViewById<ImageView>(R.id.character_info_button)
                 val characterName = findViewById<TextView>(R.id.character_name)
                 val characterImageUrl = character.optString("picture")
                 val characterAvatar = findViewById<ImageView>(R.id.character_avatar)
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity, BioActivity::class.java)
                 intent.putExtra("character", character.toString())
                 // Button to read information about character.
-                characterName.setOnClickListener { view ->
+                characterInfo.setOnClickListener { view ->
                     view.context.startActivity(intent)
                 }
                 // Swipe listener to swipe right or left on characters.
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                             //toast("You liked them!").setGravity(Gravity.TOP, 0, 0) // anko toast.
                             val toast = Toast.makeText(this@MainActivity, "You liked them!",Toast.LENGTH_SHORT)
                             val view = toast.view
-                            view.setBackgroundColor(Color.WHITE)
+                            view.setBackgroundColor(Color.TRANSPARENT)
                             val text = view.findViewById(android.R.id.message) as TextView
                             text.setTextColor(Color.BLACK)
                             text.textSize = (24F)
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                         //toast("You didn't like them?").setGravity(Gravity.TOP, 0, 0) // anko toast.
                         val toast = Toast.makeText(this@MainActivity, "You didn't like them?",Toast.LENGTH_SHORT)
                         val view = toast.view
-                        view.setBackgroundColor(Color.WHITE)
+                        view.setBackgroundColor(Color.TRANSPARENT)
                         val text = view.findViewById(android.R.id.message) as TextView
                         text.setTextColor(Color.BLACK)
                         text.textSize = (24F)

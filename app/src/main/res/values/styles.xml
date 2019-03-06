@@ -22,7 +22,7 @@
         <!-- Used for the title and text -->
         <item name="android:textColorPrimary">#ffffff</item>
         <!-- Used for the background -->
-        <item name="android:background">#cc0000</item>
+        <item name="android:background">#90ffffff</item>
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">

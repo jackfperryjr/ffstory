@@ -3,13 +3,9 @@ package com.jackperryjr.mooglekt
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
@@ -20,8 +16,6 @@ import android.view.Gravity
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
-
-import org.jetbrains.anko.*
 
 class SignupActivity : AppCompatActivity() {
 
@@ -110,7 +104,7 @@ class SignupActivity : AppCompatActivity() {
             //toast(R.string.success_message).setGravity(Gravity.TOP, 0, 0) // anko toast.
             val toast = Toast.makeText(this@SignupActivity, R.string.success_message, Toast.LENGTH_SHORT)
             val view = toast.view
-            view.setBackgroundColor(Color.WHITE)
+            view.setBackgroundColor(Color.TRANSPARENT)
             val text = view.findViewById(android.R.id.message) as TextView
             text.setTextColor(Color.BLACK)
             text.textSize = (24F)
@@ -128,7 +122,7 @@ class SignupActivity : AppCompatActivity() {
             //toast(R.string.error_email_exists).setGravity(Gravity.TOP, 0, 0) // anko toast.
             val toast = Toast.makeText(this@SignupActivity, R.string.error_email_exists, Toast.LENGTH_SHORT)
             val view = toast.view
-            view.setBackgroundColor(Color.WHITE)
+            view.setBackgroundColor(Color.TRANSPARENT)
             val text = view.findViewById(android.R.id.message) as TextView
             text.setTextColor(Color.BLACK)
             text.textSize = (24F)

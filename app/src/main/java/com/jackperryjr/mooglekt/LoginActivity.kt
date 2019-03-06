@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
             //toast("Let's start swiping!").setGravity(Gravity.TOP, 0, 0) // anko toast.
             val toast = Toast.makeText(this@LoginActivity, "Let's start swiping!", Toast.LENGTH_SHORT)
             val view = toast.view
-            view.setBackgroundColor(Color.WHITE)
+            view.setBackgroundColor(Color.TRANSPARENT)
             val text = view.findViewById(android.R.id.message) as TextView
             text.setTextColor(Color.BLACK)
             text.textSize = (24F)
@@ -105,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
             //toast(R.string.error_valid_email_password).setGravity(Gravity.TOP, 0, 0) // anko toast.
             val toast = Toast.makeText(this@LoginActivity, R.string.error_valid_email_password, Toast.LENGTH_SHORT)
             val view = toast.view
-            view.setBackgroundColor(Color.WHITE)
+            view.setBackgroundColor(Color.TRANSPARENT)
             val text = view.findViewById(android.R.id.message) as TextView
             text.setTextColor(Color.RED)
             text.textSize = (24F)
