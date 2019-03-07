@@ -86,31 +86,10 @@ class LoginActivity : AppCompatActivity() {
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
             closeKeyboard()
-            //toast("Let's start swiping!").setGravity(Gravity.TOP, 0, 0) // anko toast.
-            val toast = Toast.makeText(this@LoginActivity, "Let's start swiping!", Toast.LENGTH_SHORT)
-            val view = toast.view
-            view.setBackgroundColor(Color.TRANSPARENT)
-            val text = view.findViewById(android.R.id.message) as TextView
-            text.setTextColor(Color.BLACK)
-            text.textSize = (24F)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
-            var handler = Handler()
-            handler.postDelayed(Runnable {
-                startActivity(intent)
-                finish()
-            }, 700)
+            toastMessage("Let's start swiping!", 1, intent)
         } else {
             closeKeyboard()
-            //toast(R.string.error_valid_email_password).setGravity(Gravity.TOP, 0, 0) // anko toast.
-            val toast = Toast.makeText(this@LoginActivity, R.string.error_valid_email_password, Toast.LENGTH_SHORT)
-            val view = toast.view
-            view.setBackgroundColor(Color.TRANSPARENT)
-            val text = view.findViewById(android.R.id.message) as TextView
-            text.setTextColor(Color.RED)
-            text.textSize = (24F)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
+            toastMessage(R.string.error_valid_email_password.toString(), 0, intent)
         }
     }
     // Empty input text.
@@ -125,5 +104,22 @@ class LoginActivity : AppCompatActivity() {
             this.getCurrentFocus().getWindowToken(),
             InputMethodManager.HIDE_NOT_ALWAYS
         )
+    }
+    private fun toastMessage(message: String, action: Int, intent: Intent) {
+        val toast = Toast.makeText(this@LoginActivity, message, Toast.LENGTH_SHORT)
+        val view = toast.view
+        view.setBackgroundColor(Color.TRANSPARENT)
+        val text = view.findViewById(android.R.id.message) as TextView
+        text.setTextColor(Color.BLACK)
+        text.textSize = (24F)
+        toast.setGravity(Gravity.TOP, 0, 0)
+        toast.show()
+        if (action == 1) {
+            var handler = Handler()
+            handler.postDelayed(Runnable {
+                startActivity(intent)
+                finish()
+            }, 700)
+        }
     }
 }

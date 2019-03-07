@@ -88,36 +88,12 @@ class MainActivity : AppCompatActivity() {
                         }
                         // If you don't randomly match with the character.
                         else {
-                            //toast("You liked them!").setGravity(Gravity.TOP, 0, 0) // anko toast.
-                            val toast = Toast.makeText(this@MainActivity, "You liked them!",Toast.LENGTH_SHORT)
-                            val view = toast.view
-                            view.setBackgroundColor(Color.TRANSPARENT)
-                            val text = view.findViewById(android.R.id.message) as TextView
-                            text.setTextColor(Color.BLACK)
-                            text.textSize = (24F)
-                            toast.setGravity(Gravity.TOP, 0, 0)
-                            toast.show()
-                            val handler = Handler()
-                            handler.postDelayed (Runnable {
-                                moogleApi()
-                            }, 700)
+                            toastMessage("You liked them!", 1)
                         }
                     }
                     // If you don't want to match with the character.
                     override fun swipeLeft() {
-                        //toast("You didn't like them?").setGravity(Gravity.TOP, 0, 0) // anko toast.
-                        val toast = Toast.makeText(this@MainActivity, "You didn't like them?",Toast.LENGTH_SHORT)
-                        val view = toast.view
-                        view.setBackgroundColor(Color.TRANSPARENT)
-                        val text = view.findViewById(android.R.id.message) as TextView
-                        text.setTextColor(Color.BLACK)
-                        text.textSize = (24F)
-                        toast.setGravity(Gravity.TOP, 0, 0)
-                        toast.show()
-                        val handler = Handler()
-                        handler.postDelayed(Runnable {
-                            moogleApi()
-                        }, 700)
+                        toastMessage("You didn't like them?", 1)
                     }
                 })
             }
@@ -130,5 +106,21 @@ class MainActivity : AppCompatActivity() {
     // Random dice roll to determine if you match or not.
     private fun diceRoll(): Int {
         return (0..20).random()
+    }
+    private fun toastMessage(message: String, action: Int) {
+        val toast = Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
+        val view = toast.view
+        view.setBackgroundColor(Color.TRANSPARENT)
+        val text = view.findViewById(android.R.id.message) as TextView
+        text.setTextColor(Color.BLACK)
+        text.textSize = (24F)
+        toast.setGravity(Gravity.TOP, 0, 0)
+        toast.show()
+        if (action == 1) {
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                moogleApi()
+            }, 700)
+        }
     }
 }

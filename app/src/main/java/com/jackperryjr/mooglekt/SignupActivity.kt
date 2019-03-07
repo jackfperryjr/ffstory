@@ -101,33 +101,11 @@ class SignupActivity : AppCompatActivity() {
                 password = textInputEditTextPassword.text.toString().trim())
 
             databaseHelper.addUser(user)
-            //toast(R.string.success_message).setGravity(Gravity.TOP, 0, 0) // anko toast.
-            val toast = Toast.makeText(this@SignupActivity, R.string.success_message, Toast.LENGTH_SHORT)
-            val view = toast.view
-            view.setBackgroundColor(Color.TRANSPARENT)
-            val text = view.findViewById(android.R.id.message) as TextView
-            text.setTextColor(Color.BLACK)
-            text.textSize = (24F)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
             closeKeyboard()
-            val handler = Handler()
-            handler.postDelayed(Runnable {
-                val intent = Intent(this@SignupActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-            }, 2000)
+            toastMessage(R.string.success_message.toString(), 1, intent)
         } else {
             closeKeyboard()
-            //toast(R.string.error_email_exists).setGravity(Gravity.TOP, 0, 0) // anko toast.
-            val toast = Toast.makeText(this@SignupActivity, R.string.error_email_exists, Toast.LENGTH_SHORT)
-            val view = toast.view
-            view.setBackgroundColor(Color.TRANSPARENT)
-            val text = view.findViewById(android.R.id.message) as TextView
-            text.setTextColor(Color.BLACK)
-            text.textSize = (24F)
-            toast.setGravity(Gravity.TOP, 0, 0)
-            toast.show()
+            toastMessage(R.string.error_email_exists.toString(), 0, intent)
         }
     }
     // Empty input text.
@@ -144,5 +122,22 @@ class SignupActivity : AppCompatActivity() {
             this.getCurrentFocus().getWindowToken(),
             InputMethodManager.HIDE_NOT_ALWAYS
         )
+    }
+    private fun toastMessage(message: String, action: Int, intent: Intent) {
+        val toast = Toast.makeText(this@SignupActivity, message, Toast.LENGTH_SHORT)
+        val view = toast.view
+        view.setBackgroundColor(Color.TRANSPARENT)
+        val text = view.findViewById(android.R.id.message) as TextView
+        text.setTextColor(Color.BLACK)
+        text.textSize = (24F)
+        toast.setGravity(Gravity.TOP, 0, 0)
+        toast.show()
+        if (action == 1) {
+            var handler = Handler()
+            handler.postDelayed(Runnable {
+                startActivity(intent)
+                finish()
+            }, 700)
+        }
     }
 }
