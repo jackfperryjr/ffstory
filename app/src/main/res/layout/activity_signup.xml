@@ -21,7 +21,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"
-                android:src="@drawable/moogle" />
+                android:src="@drawable/moogle_3" />
         <android.support.v7.widget.AppCompatTextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

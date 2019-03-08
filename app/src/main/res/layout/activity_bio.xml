@@ -7,93 +7,67 @@
         android:layout_height="match_parent" android:background="@drawable/bg_moogle_03"
         tools:context=".BioActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
+    <ScrollView
+            android:layout_width="match_parent"
                 android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:scrollbars="none"
                 android:fillViewport="true" android:background="#99ffffff" android:id="@+id/scrollView2"
-                app:layout_constraintVertical_bias="1.0" app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-                android:id="@+id/character_avatar"
-                android:layout_width="200dp" android:layout_height="200dp"
-                android:layout_marginTop="20dp" android:layout_marginLeft="50dp"/>
-
-        <RelativeLayout
-                android:layout_width="match_parent"
+                tools:layout_editor_absoluteX="0dp" app:layout_constraintVertical_bias="1.0">
+        <LinearLayout
+                android:layout_width="match_parent" android:paddingLeft="20dp" android:paddingRight="20dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="60dp">
+                android:layout_marginBottom="160dp">
 
+            <ImageView
+                    android:layout_width="200dp" android:background="#ffffff"
+                    android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars[0]"
+                    android:id="@+id/character_avatar" android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"/>
             <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="sample" android:textSize="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="26dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_name"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="60dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
             <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="28dp"
-                    android:text="" android:textSize="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="26dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_age"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="120dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
             <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="28dp"
-                    android:text="" android:textSize="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="26dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_gender"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="160dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
             <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="28dp"
-                    android:text="" android:textSize="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="26dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_race"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="200dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
             <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="28dp"
-                    android:text="" android:textSize="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="26dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_job"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="240dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
             <TextView
-                    android:layout_width="300dp"
-                    android:layout_height="28dp"
-                    android:text="" android:textSize="22dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:textSize="26dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_origin"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="280dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp" android:layout_marginStart="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
             <TextView
-                    android:layout_width="300dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="" android:textSize="22dp"
+                    android:text="" android:layout_marginBottom="10dp"
                     android:id="@+id/character_description"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="320dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="150dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="60dp"
-                    android:layout_marginRight="50dp"
                     android:textColor="@color/colorPrimaryDark"/>
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
     <Button
             android:text="back"

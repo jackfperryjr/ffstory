@@ -30,7 +30,7 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar!!.hide()
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         // Getting character data and setting it.
-        val character = JSONObject(getIntent().getStringExtra("character"))
+        val character = JSONObject(intent.getStringExtra("character"))
         val characterName = findViewById<TextView>(R.id.character_name)
         characterName.text = character.optString("name")
         // Setting avatar.
