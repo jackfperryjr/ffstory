@@ -65,7 +65,7 @@ class ChatActivity : AppCompatActivity() {
             false
         })
         // Send message on button click.
-        val send = findViewById<ImageButton>(R.id.send_button)
+        val send = findViewById<ImageView>(R.id.send_button)
         send.setOnClickListener {
             sendMessage(listMessages, messages, message)
         }

@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
                 // Convert JSON string back to JSON object.
                 val character = JSONObject(apiURL)
                 //
+                val characterLike = findViewById<ImageView>(R.id.character_like_button)
                 val characterInfo = findViewById<ImageView>(R.id.character_info_button)
                 val characterName = findViewById<TextView>(R.id.character_name)
                 val characterImageUrl = character.optString("picture")
@@ -54,42 +55,14 @@ class MainActivity : AppCompatActivity() {
                 characterInfo.setOnClickListener { view ->
                     view.context.startActivity(intent)
                 }
+                characterLike.setOnClickListener {
+                    right(character)
+                }
                 // Swipe listener to swipe right or left on characters.
                 val onSwipeTouchListener = OnSwipeTouchListener(this@MainActivity, findViewById(R.id.character_avatar))
                 onSwipeTouchListener.setOnSwipeListener(object : OnSwipeTouchListener.onSwipeListener {
                     override fun swipeRight() {
-                        val chance= diceRoll()
-                        // If you randomly match with the character!
-                        if (chance >= 15) { // Just an easy random selection for now.
-                            val handler = Handler()
-                            handler.postDelayed(Runnable {
-                                alert(Appcompat) {
-                                    title = "You Matched!"
-                                    negativeButton("Nope!") { moogleApi() }
-                                    positiveButton("Yes!") {
-                                        val intent = Intent(this@MainActivity, ChatActivity::class.java)
-                                        intent.putExtra("character", character.toString())
-                                        startActivity(intent)
-                                        finish()
-                                    }
-                                    customView {
-                                        linearLayout {
-                                            textView("Would you like to send a message?")
-                                            padding = dip(20)
-                                            weightSum = 1.0f
-                                        }
-                                    }
-                                }.show()
-                                    .apply {
-                                    getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
-                                    getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
-                                }
-                            }, 700)
-                        }
-                        // If you don't randomly match with the character.
-                        else {
-                            toastMessage("You liked them!", 1)
-                        }
+                        right(character)
                     }
                     // If you don't want to match with the character.
                     override fun swipeLeft() {
@@ -121,6 +94,41 @@ class MainActivity : AppCompatActivity() {
             handler.postDelayed(Runnable {
                 moogleApi()
             }, 700)
+        }
+    }
+
+    private fun right(character: JSONObject) {
+        val chance= diceRoll()
+        // If you randomly match with the character!
+        if (chance >= 15) { // Just an easy random selection for now.
+            val handler = Handler()
+            handler.postDelayed(Runnable {
+                alert(Appcompat) {
+                    title = "You Matched!"
+                    negativeButton("Nope!") { moogleApi() }
+                    positiveButton("Yes!") {
+                        val intent = Intent(this@MainActivity, ChatActivity::class.java)
+                        intent.putExtra("character", character.toString())
+                        startActivity(intent)
+                        finish()
+                    }
+                    customView {
+                        linearLayout {
+                            textView("Would you like to send a message?")
+                            padding = dip(20)
+                            weightSum = 1.0f
+                        }
+                    }
+                }.show()
+                    .apply {
+                        getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
+                        getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
+                    }
+            }, 700)
+        }
+        // If you don't randomly match with the character.
+        else {
+            toastMessage("You liked them!", 1)
         }
     }
 }
