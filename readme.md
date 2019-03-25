@@ -8,3 +8,5 @@
 Things to come
 * An inbox to save chats
 * A list to save your matches
+
+(Sign up is broken, but there's a dummy user built in: email: tester@tester.com pw:password)
