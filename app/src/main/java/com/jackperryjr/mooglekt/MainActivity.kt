@@ -21,7 +21,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 class MainActivity : AppCompatActivity() {
     //private var spinner: ProgressBar? = null // Spinner when pulling in a character; not currently in use.
-    private var URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/characters/random" //My API :)
+    private var URL_RANDOM_CHARACTER = "https://www.moogleapi.com/api/v1/characters/random" //My API :)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
