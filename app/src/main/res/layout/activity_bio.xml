@@ -7,68 +7,68 @@
         android:layout_height="match_parent" android:background="#ffffff"
         tools:context=".BioActivity">
 
-        <LinearLayout
-                android:layout_width="match_parent" android:paddingLeft="20dp" android:paddingRight="20dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="160dp">
+    <LinearLayout
+            android:layout_width="match_parent" android:paddingLeft="20dp" android:paddingRight="20dp"
+            android:layout_height="603dp"
+            android:orientation="vertical"
+    >
 
-            <ImageView
-                    android:layout_width="200dp" android:background="#ffffff"
-                    android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars[0]"
-                    android:id="@+id/character_avatar" android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_name"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_age"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_gender"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_race"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_job"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_origin"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textSize="22dp"
-                    android:text="" android:layout_marginBottom="10dp"
-                    android:id="@+id/character_description"
-                    android:textColor="@color/colorPrimaryDark"/>
-            <Button
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:id="@+id/back_button" android:layout_gravity="right"
-                    android:background="@drawable/back_button_icon"
-                    android:textColor="@color/colorPrimaryDark" android:layout_marginRight="40dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-        </LinearLayout>
+        <ImageView
+                android:layout_width="200dp" android:background="#ffffff"
+                android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars[0]"
+                android:id="@+id/character_avatar" android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_name"
+                android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_age"
+                android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_gender"
+                android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_race"
+                android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_job"
+                android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_origin"
+                android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="22dp"
+                android:text="" android:layout_marginBottom="10dp"
+                android:id="@+id/character_description"
+                android:textColor="@color/colorPrimaryDark"/>
+        <Button
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/back_button" android:layout_gravity="right"
+                android:background="@drawable/back_button_icon" android:layout_marginTop="15dp"
+                android:textColor="@color/colorPrimaryDark" android:layout_marginRight="15dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>
