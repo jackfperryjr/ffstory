@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <!--<item name="android:background">@drawable/ffbackground</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -10,10 +10,11 @@
         <item name="colorControlActivated">#cc0000</item>
         <item name="colorControlHighlight">#cc0000</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
 
-    <style name="MyActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">#ffffff</item>
+    <style name="MyActionBar" parent="Theme.AppCompat.Light">
+        <item name="android:background">#00ffffff</item>
     </style>
 
     <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">

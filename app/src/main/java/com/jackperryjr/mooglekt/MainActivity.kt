@@ -7,7 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.*
 import android.graphics.Color
-import android.view.Gravity
+import android.view.*
+import android.graphics.drawable.ColorDrawable
 
 import java.net.*
 
@@ -18,6 +19,9 @@ import org.jetbrains.anko.appcompat.v7.Appcompat
 import com.squareup.picasso.Picasso
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
+import android.view.MenuInflater
+
+
 
 class MainActivity : AppCompatActivity() {
     //private var spinner: ProgressBar? = null // Spinner when pulling in a character; not currently in use.
@@ -27,10 +31,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // Hiding the action bar.
-        supportActionBar!!.hide()
+        //supportActionBar!!.hide()
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#00ffffff")))
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
         //spinner = findViewById<ProgressBar>(R.id.spinner) // Not currently using.
         moogleApi()
         //spinner!!.setVisibility(View.GONE) // Hiding the spinner that I'm not currently using.
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the action bar menu from menu xml file.
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.action_bar, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun moogleApi() {

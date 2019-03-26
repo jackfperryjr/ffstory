@@ -8,6 +8,8 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 
 import kotlinx.android.synthetic.main.activity_chat.messages
 
@@ -27,7 +29,9 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         // Hiding the action bar.
-        supportActionBar!!.hide()
+        //supportActionBar!!.hide()
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#00ffffff")))
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         // Getting character data and setting it.
         val character = JSONObject(intent.getStringExtra("character"))
@@ -69,6 +73,12 @@ class ChatActivity : AppCompatActivity() {
         send.setOnClickListener {
             sendMessage(listMessages, messages, message)
         }
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the action bar menu from menu xml file.
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.action_bar, menu)
+        return super.onCreateOptionsMenu(menu)
     }
     // Close the keyboard.
     private fun closeKeyboard() {
@@ -139,6 +149,6 @@ class ChatActivity : AppCompatActivity() {
     }
     // Random dice roll to determine the amount of time before response is sent.
     private fun responseDiceRoll(): Long {
-        return (2000..90000).random().toLong()
+        return (2000..30000).random().toLong()
     }
 }

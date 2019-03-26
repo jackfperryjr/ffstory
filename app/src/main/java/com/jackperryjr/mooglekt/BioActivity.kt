@@ -1,7 +1,10 @@
 package com.jackperryjr.mooglekt
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.*
 import com.squareup.picasso.Picasso
@@ -15,13 +18,21 @@ class BioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bio)
         // Hiding the action bar.
-        supportActionBar!!.hide()
+        //supportActionBar!!.hide()
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#00ffffff")))
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
         setCharacterData()
 
         val back = findViewById<Button>(R.id.back_button)
         back.setOnClickListener(View.OnClickListener { view ->
             finish()
         })
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the action bar menu from menu xml file.
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.action_bar, menu)
+        return super.onCreateOptionsMenu(menu)
     }
     // Setting the character data to the screen, this needs work.
     private fun setCharacterData() {
