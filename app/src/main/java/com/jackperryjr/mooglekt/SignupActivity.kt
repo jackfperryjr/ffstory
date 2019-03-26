@@ -101,11 +101,9 @@ class SignupActivity : AppCompatActivity() {
                 password = textInputEditTextPassword.text.toString().trim())
 
             databaseHelper.addUser(user)
-            closeKeyboard()
-            toastMessage(R.string.success_message.toString(), 1, intent)
+            toastMessage("You're in. Login to start swiping!", 1)
         } else {
-            closeKeyboard()
-            toastMessage(R.string.error_email_exists.toString(), 0, intent)
+            toastMessage(R.string.error_email_exists.toString(), 0)
         }
     }
     // Empty input text.
@@ -123,7 +121,8 @@ class SignupActivity : AppCompatActivity() {
             InputMethodManager.HIDE_NOT_ALWAYS
         )
     }
-    private fun toastMessage(message: String, action: Int, intent: Intent) {
+    private fun toastMessage(message: String, action: Int) {
+        closeKeyboard()
         val toast = Toast.makeText(this@SignupActivity, message, Toast.LENGTH_SHORT)
         val view = toast.view
         view.setBackgroundColor(Color.TRANSPARENT)
@@ -132,6 +131,7 @@ class SignupActivity : AppCompatActivity() {
         text.textSize = (24F)
         toast.setGravity(Gravity.TOP, 0, 0)
         toast.show()
+        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
         if (action == 1) {
             var handler = Handler()
             handler.postDelayed(Runnable {
