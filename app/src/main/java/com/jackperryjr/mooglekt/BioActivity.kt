@@ -19,8 +19,9 @@ class BioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bio)
         // Hiding the action bar.
         //supportActionBar!!.hide()
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#00ffffff")))
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setElevation(0.toFloat())
         setCharacterData()
 
         val back = findViewById<Button>(R.id.back_button)

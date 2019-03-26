@@ -19,9 +19,6 @@ import org.jetbrains.anko.appcompat.v7.Appcompat
 import com.squareup.picasso.Picasso
 
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
-import android.view.MenuInflater
-
-
 
 class MainActivity : AppCompatActivity() {
     //private var spinner: ProgressBar? = null // Spinner when pulling in a character; not currently in use.
@@ -32,8 +29,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         // Hiding the action bar.
         //supportActionBar!!.hide()
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#00ffffff")))
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setElevation(0.toFloat())
         //spinner = findViewById<ProgressBar>(R.id.spinner) // Not currently using.
         moogleApi()
         //spinner!!.setVisibility(View.GONE) // Hiding the spinner that I'm not currently using.

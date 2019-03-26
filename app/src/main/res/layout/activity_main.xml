@@ -19,12 +19,12 @@
                 android:scaleType="fitCenter" android:contentDescription="@string/avatar"
                 android:background="#ffffff" android:adjustViewBounds="false"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="70dp"
+                app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="30dp"
                 android:layout_marginBottom="34dp" app:layout_constraintBottom_toTopOf="@+id/character_info_button"
                 app:layout_constraintVertical_bias="1.0"/>
         <TextView
                 android:layout_width="160dp"
-                android:layout_height="83dp"
+                android:layout_height="70dp"
                 android:gravity="center_horizontal" android:text=""
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -54,7 +54,7 @@
                 android:textColor="@color/colorPrimaryDark" android:textSize="24sp"
                 app:layout_constraintEnd_toStartOf="@+id/character_info_button" android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
-                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/character_avatar"/>
+                android:layout_marginTop="46dp" app:layout_constraintTop_toBottomOf="@+id/character_avatar"/>
 
         <ImageView
                 android:layout_width="50dp"
@@ -70,7 +70,7 @@
                 android:textColor="@color/colorPrimaryDark" android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="40dp" android:layout_marginRight="40dp"
-                android:layout_marginTop="16dp" app:layout_constraintTop_toBottomOf="@+id/character_avatar"/>
+                android:layout_marginTop="46dp" app:layout_constraintTop_toBottomOf="@+id/character_avatar"/>
 
         <!--<ProgressBar-->
         <!--android:layout_width="0dp"-->

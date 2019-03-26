@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
             android:id="@+id/action_bar_icon"
-            android:icon="@mipmap/moogle_3"
+            android:icon="@mipmap/moogle_3_flipped"
             android:title=""
             app:showAsAction="always"/>
 </menu>

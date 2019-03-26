@@ -30,8 +30,9 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         // Hiding the action bar.
         //supportActionBar!!.hide()
-        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#00ffffff")))
+        supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
         supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setElevation(0.toFloat())
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         // Getting character data and setting it.
         val character = JSONObject(intent.getStringExtra("character"))
