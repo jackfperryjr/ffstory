@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             val handler = Handler()
             handler.postDelayed(Runnable {
                 moogleApi()
-            }, 700)
+            }, 100)
         }
     }
 
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                         getButton(AlertDialog.BUTTON_POSITIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
                         getButton(AlertDialog.BUTTON_NEGATIVE)?.let { it.backgroundColor = Color.rgb(255,255,255); it.textColor = Color.rgb(33,38,43) }
                     }
-            }, 700)
+            }, 100)
         }
         // If you don't randomly match with the character.
         else {

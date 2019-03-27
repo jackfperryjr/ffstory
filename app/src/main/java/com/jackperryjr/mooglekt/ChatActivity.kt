@@ -31,13 +31,14 @@ class ChatActivity : AppCompatActivity() {
         // Hiding the action bar.
         //supportActionBar!!.hide()
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
         supportActionBar!!.setElevation(0.toFloat())
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         // Getting character data and setting it.
         val character = JSONObject(intent.getStringExtra("character"))
         val characterName = findViewById<TextView>(R.id.character_name)
-        characterName.text = character.optString("name")
+        supportActionBar!!.setTitle(character.optString("name"))
+        supportActionBar!!.setDisplayShowTitleEnabled(true)
+        //characterName.text = character.optString("name")
         // Setting avatar.
         val characterImageUrl = character.optString("picture")
         val characterAvatar = findViewById<ImageView>(R.id.character_avatar)

@@ -20,7 +20,8 @@ class BioActivity : AppCompatActivity() {
         // Hiding the action bar.
         //supportActionBar!!.hide()
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#ffffff")))
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setTitle("Profile")
+        supportActionBar!!.setDisplayShowTitleEnabled(true)
         supportActionBar!!.setElevation(0.toFloat())
         setCharacterData()
 
