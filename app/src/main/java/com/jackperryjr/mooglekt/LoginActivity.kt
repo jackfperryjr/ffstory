@@ -87,10 +87,10 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(activity, MainActivity::class.java)
             //accountsIntent.putExtra("EMAIL", textInputEditTextEmail!!.text.toString().trim { it <= ' ' })
             emptyInputEditText()
-            closeKeyboard()
+            //closeKeyboard()
             toastMessage("Let's start swiping!", 1, intent)
         } else {
-            closeKeyboard()
+            //closeKeyboard()
             toastMessage(R.string.error_valid_email_password.toString(), 0, intent)
         }
     }
