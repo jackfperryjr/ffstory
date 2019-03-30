@@ -68,6 +68,8 @@ class LoginActivity : AppCompatActivity() {
     private fun initObjects() {
         databaseHelper = DatabaseHelper(activity)
         inputValidation = InputValidation(activity)
+        databaseHelper.addUser(user = User(1, "tester", "tester@tester.com", "password"))
+
     }
     // Validate input text and verify login credentials.
     private fun verifyFromSQLite() {

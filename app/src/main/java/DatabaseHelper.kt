@@ -16,7 +16,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_USER_TABLE)
-        addUser(user = User(1, "tester", "tester@tester.com", "password"))
+        //addUser(user = User(1, "tester", "tester@tester.com", "password"))
     }
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Drop User Table if exist.
