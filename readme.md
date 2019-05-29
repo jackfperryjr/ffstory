@@ -11,11 +11,11 @@ Things to come
 
 (Sign up is broken, but there's a dummy user built in: email: tester@tester.com pw:password)
 
-![mooglekt signup](screenshots/mooglekt-signup.png) ![mooglekt login](screenshots/mooglekt-login.png)
+:![mooglekt signup](screenshots/mooglekt-signup.png) ![mooglekt login](screenshots/mooglekt-login.png):
 
-![mooglekt swipe](screenshots/mooglekt-swipe.png) ![mooglekt profile](screenshots/mooglekt-profile.png)
+:![mooglekt swipe](screenshots/mooglekt-swipe.png) ![mooglekt profile](screenshots/mooglekt-profile.png):
 
-![mooglekt matched](screenshots/mooglekt-matched.png)
+:![mooglekt matched](screenshots/mooglekt-matched.png):
 
-![mooglekt message](screenshots/mooglekt-message.png) ![mooglekt chat](screenshots/mooglekt-chat.png)
+:![mooglekt message](screenshots/mooglekt-message.png) ![mooglekt chat](screenshots/mooglekt-chat.png):
 
